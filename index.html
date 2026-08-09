@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>commit terrain — Noah Zhou</title>
+<meta name="description" content="GitHub commit history as a black & white terrain. An installation piece.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #050505; }
+  canvas { display: block; }
+  #bg    { position: fixed; inset: 0; z-index: 0; }
+  #scene { position: fixed; inset: 0; z-index: 1; touch-action: none; cursor: grab; }
+  #scene.dragging { cursor: grabbing; }
+  .plaque {
+    position: fixed; z-index: 2; pointer-events: none; user-select: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .plaque.tl { top: 24px; left: 28px; font-size: 11px; color: rgba(255,255,255,0.5); }
+  .plaque.tl b { color: rgba(255,255,255,0.92); font-weight: 600; }
+  .plaque.br {
+    bottom: 22px; right: 28px; font-size: 10px; text-align: right;
+    color: rgba(255,255,255,0.32); line-height: 1.9;
+  }
+  .hint {
+    position: fixed; z-index: 2; left: 28px; bottom: 24px; pointer-events: none; user-select: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 10px; letter-spacing: 0.14em; color: rgba(255,255,255,0.28); text-transform: uppercase;
+  }
+  @media (max-width: 640px) { .plaque.br { display: none; } }
+  .fallback {
+    position: fixed; inset: 0; z-index: 3; display: none;
+    align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.6); font-family: monospace; font-size: 13px; letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<canvas id="scene"></canvas>
+
+<div class="plaque tl">noah zhou — <b>commit terrain</b></div>
+<div class="plaque br">source: github contributions<br>2025.08.10 — 2026.08.09 · 710 commits</div>
+<div class="hint">drag to orbit · scroll to zoom</div>
+<div class="fallback" id="fallback">webgl required — come back with a real browser</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script>
+/* ── baked data: github contributions, 53 weeks × 7 days (sun..sat) ── */
+const WEEKS = [[0,0,1,0,0,0,0],[1,0,0,0,0,0,0],[0,0,0,0,0,0,0],[2,1,0,0,0,0,0],[0,3,3,0,0,0,0],[0,0,0,0,1,0,0],[0,0,0,0,0,0,3],[0,0,0,0,0,0,0],[2,0,0,0,0,0,0],[0,0,0,0,0,2,0],[0,0,0,0,2,0,0],[0,0,0,0,1,0,0],[0,0,0,0,0,0,0],[0,0,0,1,0,0,0],[0,0,0,0,2,1,0],[0,0,0,0,0,0,0],[0,0,0,0,2,1,3],[0,0,11,0,0,1,0],[6,10,0,2,0,0,0],[0,0,0,0,0,0,0],[0,0,6,0,0,0,0],[0,1,0,2,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,2,2,0],[0,0,0,0,2,11,5],[6,0,0,4,1,3,1],[0,0,0,0,0,0,0],[0,0,0,3,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,4,9],[5,0,5,0,0,1,0],[0,0,0,1,0,0,0],[0,5,0,3,0,0,0],[0,0,0,0,2,0,0],[0,0,0,0,1,0,1],[3,9,1,0,0,0,1],[0,0,0,0,0,0,0],[0,0,0,1,5,1,0],[1,2,1,1,1,2,0],[1,2,2,1,1,2,5],[1,1,0,0,0,1,1],[0,1,4,0,4,1,0],[0,10,0,8,2,0,0],[0,0,0,0,1,0,1],[1,0,38,5,1,2,0],[0,1,1,2,0,2,2],[0,1,0,0,0,0,0],[0,0,0,0,2,3,0],[0,0,0,26,27,39,16],[13,23,13,8,15,15,14],[0,5,3,0,5,3,0],[0,0,0,129,21,2,22],[23,0,0,0,0,0,0]];
+
+/* ── helpers ─────────────────────────────────────── */
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+/* ── background: irregular jittering line curves ──── */
+const bg = document.getElementById("bg");
+const bctx = bg.getContext("2d");
+let BW = 0, BH = 0;
+function sizeBg() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  BW = window.innerWidth; BH = window.innerHeight;
+  bg.width = BW * dpr; bg.height = BH * dpr;
+  bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+sizeBg();
+window.addEventListener("resize", sizeBg);
+
+const NLINES = 9;
+function jnoise(x, t, s) {
+  return 0.55 * Math.sin(x * 0.0032 + t * 0.55 + s * 1.91)
+       + 0.30 * Math.sin(x * 0.0013 - t * 0.37 + s * 2.83)
+       + 0.15 * Math.sin(x * 0.0007 + t * 0.21 + s * 5.11);
+}
+let bgT = 0;
+function drawBg() {
+  bctx.clearRect(0, 0, BW, BH);
+  for (let i = 0; i < NLINES; i++) {
+    const base = BH * (i + 0.6) / (NLINES + 1.2) + Math.sin(bgT * 0.10 + i * 1.3) * BH * 0.045;
+    const amp = 10 + (i % 3) * 12 + 6 * Math.sin(bgT * 0.05 + i * 2.2);
+    const step = 26;
+    bctx.beginPath();
+    for (let x = -step; x <= BW + step; x += step) {
+      const y = base + jnoise(x, bgT, i) * amp;
+      if (x === -step) bctx.moveTo(x, y); else bctx.lineTo(x, y);
+    }
+    bctx.strokeStyle = "rgba(255,255,255," + (0.05 + (i % 3) * 0.05).toFixed(3) + ")";
+    bctx.lineWidth = (i % 3 === 0) ? 1.4 : 1;
+    bctx.stroke();
+  }
+  bgT += 0.012;
+}
+
+/* ── terrain: smooth heightfield from the 53×7 grid ── */
+const FCOLS = 360, FROWS = 80;          // fine grid
+function buildHeightfield() {
+  const W = WEEKS.length, H = WEEKS[0].length;
+  let mx = 0;
+  const vals = new Array(W * H);
+  for (let i = 0; i < W; i++) for (let j = 0; j < H; j++) {
+    const v = Math.sqrt(WEEKS[i][j]);
+    vals[j * W + i] = v;
+    if (v > mx) mx = v;
+  }
+  const src = document.createElement("canvas");
+  src.width = W; src.height = H;
+  const sctx = src.getContext("2d");
+  const img = sctx.createImageData(W, H);
+  for (let k = 0; k < vals.length; k++) {
+    const g = Math.round(vals[k] / mx * 255);
+    img.data[k * 4] = g; img.data[k * 4 + 1] = g; img.data[k * 4 + 2] = g; img.data[k * 4 + 3] = 255;
+  }
+  sctx.putImageData(img, 0, 0);
+  const fine = document.createElement("canvas");
+  fine.width = FCOLS; fine.height = FROWS;
+  const fctx = fine.getContext("2d");
+  fctx.imageSmoothingEnabled = true;
+  fctx.imageSmoothingQuality = "high";
+  fctx.drawImage(src, 0, 0, FCOLS, FROWS);   // bicubic-ish upscale
+  const d = fctx.getImageData(0, 0, FCOLS, FROWS).data;
+  const hf = new Float32Array(FCOLS * FROWS);
+  for (let k = 0; k < FCOLS * FROWS; k++) hf[k] = d[k * 4] / 255;
+  return hf;
+}
+
+/* ── scene ───────────────────────────────────────── */
+const canvas3d = document.getElementById("scene");
+const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x050505, 130, 300);
+
+const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 600);
+
+const hf = buildHeightfield();
+const LENX = 96, LENZ = 16, MAXH = 14;
+const geo = new THREE.PlaneGeometry(LENX, LENZ, FCOLS - 1, FROWS - 1);
+geo.rotateX(-Math.PI / 2);
+const pos = geo.attributes.position;
+for (let i = 0; i < pos.count; i++) {
+  const x = pos.getX(i), z = pos.getZ(i);
+  const u = (x / LENX + 0.5) * (FCOLS - 1);
+  const v = (z / LENZ + 0.5) * (FROWS - 1);
+  const c0 = Math.floor(u), c1 = Math.min(FCOLS - 1, c0 + 1);
+  const r0 = Math.floor(v), r1 = Math.min(FROWS - 1, r0 + 1);
+  const fu = u - c0, fv = v - r0;
+  const h =
+    (hf[r0 * FCOLS + c0] * (1 - fu) + hf[r0 * FCOLS + c1] * fu) * (1 - fv) +
+    (hf[r1 * FCOLS + c0] * (1 - fu) + hf[r1 * FCOLS + c1] * fu) * fv;
+  pos.setY(i, h * MAXH);
+}
+geo.computeVertexNormals();
+
+const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92, metalness: 0 });
+const mesh = new THREE.Mesh(geo, mat);
+scene.add(mesh);
+
+// lighting — pure white, hillshade from upper-left
+scene.add(new THREE.HemisphereLight(0xffffff, 0x141414, 0.65));
+const key = new THREE.DirectionalLight(0xffffff, 1.35);
+key.position.set(60, 90, 45);
+scene.add(key);
+const fill = new THREE.DirectionalLight(0xffffff, 0.25);
+fill.position.set(-40, 20, -60);
+scene.add(fill);
+
+// technical grid + axes
+const grid = new THREE.GridHelper(180, 36, 0xffffff, 0xffffff);
+grid.position.y = -0.35;
+grid.material.transparent = true;
+grid.material.opacity = 0.05;
+scene.add(grid);
+function axisLine(x0, y0, z0, x1, y1, z1) {
+  const g = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(x0, y0, z0), new THREE.Vector3(x1, y1, z1)
+  ]);
+  const m = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.3 });
+  scene.add(new THREE.Line(g, m));
+}
+axisLine(-LENX / 2 - 4, -0.28, 0, LENX / 2 + 4, -0.28, 0);   // weeks axis
+axisLine(0, -0.28, -LENZ / 2 - 2, 0, -0.28, LENZ / 2 + 2);   // weekdays axis
+
+/* ── orbit ───────────────────────────────────────── */
+const target = new THREE.Vector3(0, 4.5, 0);
+let yaw = -0.7, pitch = 0.42, dist = 88;
+let dragging = false, lx = 0, ly = 0;
+
+canvas3d.addEventListener("pointerdown", (e) => {
+  dragging = true; lx = e.clientX; ly = e.clientY;
+  canvas3d.classList.add("dragging");
+});
+window.addEventListener("pointermove", (e) => {
+  if (!dragging) return;
+  yaw -= (e.clientX - lx) * 0.005;
+  pitch = clamp(pitch + (e.clientY - ly) * 0.004, 0.12, 1.25);
+  lx = e.clientX; ly = e.clientY;
+});
+window.addEventListener("pointerup", () => {
+  dragging = false;
+  canvas3d.classList.remove("dragging");
+});
+canvas3d.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  dist = clamp(dist * Math.exp(e.deltaY * 0.0011), 34, 200);
+}, { passive: false });
+
+function updateCam() {
+  if (!dragging) yaw += 0.00012;   // slow cinematic drift
+  camera.position.set(
+    target.x + dist * Math.cos(pitch) * Math.sin(yaw),
+    target.y + dist * Math.sin(pitch),
+    target.z + dist * Math.cos(pitch) * Math.cos(yaw)
+  );
+  camera.lookAt(target);
+}
+
+/* ── loop ────────────────────────────────────────── */
+function loop() {
+  updateCam();
+  renderer.render(scene, camera);
+  drawBg();
+  requestAnimationFrame(loop);
+}
+
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+if (!window.WebGLRenderingContext || !document.createElement("canvas").getContext("webgl")) {
+  document.getElementById("fallback").style.display = "flex";
+} else {
+  loop();
+}
+</script>
+</body>
+</html>
