@@ -1,0 +1,40 @@
+name: Deploy to Codeberg Pages
+
+on:
+  push:
+    branches:
+      - pages
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ forge.workflow }}-${{ forge.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: codeberg-small
+    if: ${{ forge.ref == 'refs/heads/pages' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Deploy to Codeberg Pages
+        uses: https://codeberg.org/git-pages/action@v2
+        with:
+          site: https://${{ forge.repository_owner }}.codeberg.page/
+          token: ${{ forge.token }}
+          source: dist/

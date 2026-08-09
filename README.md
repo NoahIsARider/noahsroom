@@ -33,3 +33,5 @@ npm run build
 - The page only reads the `Knowlegde Base` branch from the bookmarks file.
 - If you rename the bookmarks export file, update the `inputPath` in `scripts/build.mjs`.
 - If you change the visual style, rebuild again before pushing.
+- Codeberg Actions workflow lives in `.forgejo/workflows/deploy.yml`.
+- This repository is currently set up to deploy from the `pages` branch to `https://NoahIsARider.codeberg.page/`.
