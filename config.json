@@ -1,0 +1,49 @@
+{
+  "sections": [
+    {
+      "title": "{{username}}@github",
+      "fields": [
+        { "key": "Name", "value": "{{name}}" },
+        { "key": "Location", "value": "{{location}}" },
+        { "key": "Created", "value": "{{created}}" },
+        { "key": "Uptime", "value": "{{uptime}}" },
+        { "key": "Bio", "value": "{{bio}}" }
+      ]
+    },
+    {
+      "title": "- System",
+      "fields": [
+        { "key": "OS", "value": "Windows 11 · WSL Ubuntu" },
+        { "key": "Host", "value": "Lenovo Legion" },
+        { "key": "IDE", "value": "Trae · VS Code · Claude Code" },
+        { "key": "Shell", "value": "Bash · PowerShell" }
+      ]
+    },
+    {
+      "title": "- Software",
+      "fields": [
+        { "key": "Design", "value": "Blender · Affinity · Krita" },
+        { "key": "Video", "value": "DaVinci Resolve" },
+        { "key": "Audio", "value": "Cakewalk · BandLab" },
+        { "key": "Research", "value": "MATLAB · R · LaTeX · Zotero" },
+        { "key": "Plays", "value": "Disco Elysium · Outer Wilds · K.R.Zero" }
+      ]
+    },
+    {
+      "title": "- Languages",
+      "fields": [
+        { "key": "Top", "value": "{{languages}}" }
+      ]
+    }
+  ],
+  "stats": {
+    "title": "- GitHub Stats",
+    "rows": [
+      { "left": { "key": "Repos", "value": "{{repos}}" }, "right": { "key": "Stars", "value": "{{stars}}" } },
+      { "left": { "key": "Commits", "value": "{{commits}}" }, "right": { "key": "Followers", "value": "{{followers}}" } },
+      { "left": { "key": "Following", "value": "{{following}}" }, "right": { "key": "Gists", "value": "{{gists}}" } },
+      { "left": { "key": "Issues", "value": "{{issues}}" }, "right": { "key": "PRs", "value": "{{prs}}" } },
+      "loc"
+    ]
+  }
+}
