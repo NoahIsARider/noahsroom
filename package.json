@@ -1,0 +1,11 @@
+{
+  "name": "noahisarider-knowledge-base",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "refresh": "node scripts/build.mjs",
+    "clean": "node -e \"import fs from 'node:fs'; fs.rmSync('dist', { recursive: true, force: true });\""
+  }
+}

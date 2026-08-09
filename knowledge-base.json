@@ -1,0 +1,372 @@
+{
+  "site": {
+    "title": "Knowledge Base",
+    "displayTitle": "Library",
+    "owner": "noahisarider",
+    "ownerUrl": "https://github.com/NoahIsARider",
+    "sourceFile": "favorites_7_28_26.html",
+    "updatedAt": "July 28, 2026"
+  },
+  "stats": {
+    "totalLinks": 48,
+    "totalSections": 6,
+    "totalBranches": 3
+  },
+  "sections": [
+    {
+      "id": "general-studies",
+      "title": "General Studies",
+      "originalTitle": "General Knowledge",
+      "parent": "Knowledge Base",
+      "note": "References on citation styles, study applications, public context, and practical academic workflows.",
+      "span": "standard",
+      "count": 8,
+      "links": [
+        {
+          "title": "How to Cite Online References",
+          "originalTitle": "关于引用网络参考文献的写法 - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/97260850",
+          "domain": "zhuanlan.zhihu.com"
+        },
+        {
+          "title": "Applying for the CSC Graduate Scholarship",
+          "originalTitle": "国家公派留学研究生如何申请？ - 知乎",
+          "href": "https://www.zhihu.com/question/286783390",
+          "domain": "zhihu.com"
+        },
+        {
+          "title": "Student Visa Guide with ID995A",
+          "originalTitle": "学生签证申请全流程！含ID995A填写全攻略-签证攻略-香不香港",
+          "href": "https://www.offerhk.com/strategydetail?id=22",
+          "domain": "offerhk.com"
+        },
+        {
+          "title": "Down to the Countryside, 1968-1978",
+          "originalTitle": "知青下乡：1968年至1978年，那段改变千万人命运的历史",
+          "href": "https://baijiahao.baidu.com/s?id=1823464158472582737",
+          "domain": "baijiahao.baidu.com"
+        },
+        {
+          "title": "GB/T 7714-2015 Citation Format",
+          "originalTitle": "参考文献著录格式（国标GB／T7714-2015） - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/355312827",
+          "domain": "zhuanlan.zhihu.com"
+        },
+        {
+          "title": "Public Opinion Analysis in Python",
+          "originalTitle": "使用Python做舆情分析（词云、情感分析、热力图） - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/447249895",
+          "domain": "zhuanlan.zhihu.com"
+        },
+        {
+          "title": "Cross-Referencing Citations in Word and WPS",
+          "originalTitle": "参考文献交叉引用的使用方法（word和wps）_将论文第一章正文中的所有引注与对应的参考文献-CSDN博客",
+          "href": "https://blog.csdn.net/qq_43657442/article/details/106556269",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "IELTS Registration for Beginners",
+          "originalTitle": "雅思考试报名流程——新手指南 - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/33968159",
+          "domain": "zhuanlan.zhihu.com"
+        }
+      ]
+    },
+    {
+      "id": "culture-and-criticism",
+      "title": "Culture and Criticism",
+      "originalTitle": "Extra-Curricular",
+      "parent": "Knowledge Base",
+      "note": "Modern art, reading excerpts, film catalogues, and a few pieces of criticism worth returning to.",
+      "span": "standard",
+      "count": 5,
+      "links": [
+        {
+          "title": "Mind Map of 150 Years of Modern Art",
+          "originalTitle": "现代艺术150年思维导图整理",
+          "href": "https://book.douban.com/review/10463657/",
+          "domain": "book.douban.com"
+        },
+        {
+          "title": "Excerpts from The Age of Ideas",
+          "originalTitle": "思想的年代 原文摘录",
+          "href": "https://book.douban.com/subject/34994963/blockquotes?sort=score&start=20",
+          "domain": "book.douban.com"
+        },
+        {
+          "title": "The A24 Film Catalogue",
+          "originalTitle": "A24电影全收录",
+          "href": "https://www.douban.com/doulist/115040570/?start=50&sort=seq&playable=0&sub_type=",
+          "domain": "douban.com"
+        },
+        {
+          "title": "Review of Antichrist",
+          "originalTitle": "邪恶的悲歌（反基督者）影评",
+          "href": "https://movie.douban.com/review/2767617/",
+          "domain": "movie.douban.com"
+        },
+        {
+          "title": "Review of Forgiveness",
+          "originalTitle": "地平线上的生成（宽恕）影评",
+          "href": "https://movie.douban.com/review/16209282/",
+          "domain": "movie.douban.com"
+        }
+      ]
+    },
+    {
+      "id": "software-practice",
+      "title": "Software Practice",
+      "originalTitle": "计算机软件",
+      "parent": "Technology",
+      "note": "Android vision, Python tooling, virtual machines, shell workflows, and developer setup notes.",
+      "span": "wide",
+      "count": 21,
+      "links": [
+        {
+          "title": "Deploying a TensorFlow Lite Vision Model on Android",
+          "originalTitle": "Tensorflowlite图像识别模型--安卓端部署教程_android tensorflow lite-CSDN博客",
+          "href": "https://blog.csdn.net/qq_40514113/article/details/130296227",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Bringing Machine Learning to Android Apps",
+          "originalTitle": "安卓软件开发：如何实现机器学习部署到安卓端-腾讯云开发者社区-腾讯云",
+          "href": "https://cloud.tencent.com/developer/article/2452333",
+          "domain": "cloud.tencent.com"
+        },
+        {
+          "title": "google-ai-edge/mediapipe: Cross-platform, customizable ML solutions for live and streaming media.",
+          "originalTitle": "google-ai-edge/mediapipe: Cross-platform, customizable ML solutions for live and streaming media.",
+          "href": "https://github.com/google-ai-edge/mediapipe",
+          "domain": "github.com"
+        },
+        {
+          "title": "Android Vision Recognition from Scratch",
+          "originalTitle": "玩转Android视觉识别，从零入门！ - ByteZoneX社区",
+          "href": "https://www.bytezonex.com/archives/0Wpw2FV_.html",
+          "domain": "bytezonex.com"
+        },
+        {
+          "title": "Android Image Recognition with Compose, ML Kit, and CameraX",
+          "originalTitle": "【Android】实战图像识别：Compose + MLKit + CameraX_android ml kit-CSDN博客",
+          "href": "https://blog.csdn.net/vitaviva/article/details/121536125",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Running Local Python Files in Google Colab",
+          "originalTitle": "Google Colab 中运行自己的py文件_colab运行本地.py文件-CSDN博客",
+          "href": "https://blog.csdn.net/weixin_43543210/article/details/108444006",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Using Docker Efficiently with WSL 2 on Windows",
+          "originalTitle": "在 Windows 中通过 WSL 2 高效使用 Docker_windows wsl2 docker-CSDN博客",
+          "href": "https://blog.csdn.net/u012558210/article/details/131845638",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Opening JupyterLab from the D Drive",
+          "originalTitle": "Jupyterlab在D盘打开",
+          "href": "https://blog.csdn.net/nanchifeng3190/article/details/86688614",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Installing and Configuring Anaconda3",
+          "originalTitle": "【2024年最新】Anaconda3的安装配置及使用教程(超详细)，从零基础入门到精通，看完这一篇就够了（附安装包）-CSDN博客",
+          "href": "https://blog.csdn.net/fly_enum/article/details/139753360",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Expanding Ubuntu Disk Space in VMware",
+          "originalTitle": "VM 上扩展 Ubuntu 系统磁盘空间_vmware磁盘扩展会把系统重置吗-CSDN博客",
+          "href": "https://blog.csdn.net/zhoutaopower/article/details/104268794",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Playwright Quick Start",
+          "originalTitle": "快速入门Playwright框架：从零到自动化测试的第一步-CSDN博客",
+          "href": "https://blog.csdn.net/ak_bingbing/article/details/135852038",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Installing Docker on Ubuntu 22.04",
+          "originalTitle": "Ubuntu 22.04下Docker安装（最全指引）_docker安装ubuntu-CSDN博客",
+          "href": "https://blog.csdn.net/u011278722/article/details/137673353",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Installing VMware Tools on macOS Guests",
+          "originalTitle": "VMware 虚拟机MacOS系统安装VMware Tools_vmware tools for mac-CSDN博客",
+          "href": "https://blog.csdn.net/jiunian_2761/article/details/103950990",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Writing and Running C or C++ with Vim on Ubuntu",
+          "originalTitle": "ubuntu内使用vim编写C/C++程序并编译运行_ubuntn运行c++-CSDN博客",
+          "href": "https://blog.csdn.net/qq_46005899/article/details/136529997",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Connecting to a Server with Xshell Keys",
+          "originalTitle": "使用Xshell生成密钥连接服务器_xshell激活密钥在线生成-CSDN博客",
+          "href": "https://blog.csdn.net/qq_18881987/article/details/109068206",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Installing Ubuntu Server 22.04 LTS in VMware",
+          "originalTitle": "VMware 虚拟机图文安装和配置 Ubuntu Server 22.04 LTS 教程_00-installer-config.yaml-CSDN博客",
+          "href": "https://blog.csdn.net/u010308917/article/details/125157774",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Editing Files with Vim or Vi on Linux",
+          "originalTitle": "linux上的文件修改——vim/vi命令_linux vim修改文件命令-CSDN博客",
+          "href": "https://blog.csdn.net/Sun_of_Rainy/article/details/83651563",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Saving and Quitting in Vim",
+          "originalTitle": "VIM中的保存和退出、VIM退出命令、如何退出vim编辑、VIM命令大全_vim保存退出命令-CSDN博客",
+          "href": "https://blog.csdn.net/feosun/article/details/73196299",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Writing Better Git Commits",
+          "originalTitle": "如何规范你的Git commit？ - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/182553920",
+          "domain": "zhuanlan.zhihu.com"
+        },
+        {
+          "title": "Orange, a Python-Based Data Mining Platform",
+          "originalTitle": "Orange：一个基于 Python 的数据挖掘和机器学习平台_python orange-CSDN博客",
+          "href": "https://blog.csdn.net/horses/article/details/104375024",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "The tmux Handbook",
+          "originalTitle": "最全的tmux手册 - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/671819969",
+          "domain": "zhuanlan.zhihu.com"
+        }
+      ]
+    },
+    {
+      "id": "design-methods",
+      "title": "Design Methods",
+      "originalTitle": "设计",
+      "parent": "Technology",
+      "note": "Interface-to-code workflows, Axure setup, and color references for polished academic visuals.",
+      "span": "standard",
+      "count": 4,
+      "links": [
+        {
+          "title": "Turning Figma Designs into Frontend Code with MCP",
+          "originalTitle": "MCP 教程：将 Figma 设计稿转化为前端代码 - 文档 - TRAE CN",
+          "href": "https://docs.trae.cn/ide/tutorial-mcp-figma",
+          "domain": "docs.trae.cn"
+        },
+        {
+          "title": "From Figma to Code with Trae MCP",
+          "originalTitle": "(45 封私信 / 2 条消息) Figma设计稿秒变代码！Trae MCP 深度实测：从配置到生成全流程拆解 - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/1899101336156477334",
+          "domain": "zhuanlan.zhihu.com"
+        },
+        {
+          "title": "Installing Axure 10 on Windows",
+          "originalTitle": "Axure10_win安装教程(安装、汉化、授权码，去弹窗）_axure10授权码-CSDN博客",
+          "href": "https://blog.csdn.net/liao3399084/article/details/138605072",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Color Palettes for Academic Figures",
+          "originalTitle": "高质量论文配图配色（附RGB值及16进制码）_科研配色-CSDN博客",
+          "href": "https://blog.csdn.net/slandarer/article/details/114157177",
+          "domain": "blog.csdn.net"
+        }
+      ]
+    },
+    {
+      "id": "artificial-intelligence",
+      "title": "Artificial Intelligence",
+      "originalTitle": "人工智能",
+      "parent": "Technology",
+      "note": "Graph learning, model deployment, and experiments that bridge creative tools with AI systems.",
+      "span": "standard",
+      "count": 3,
+      "links": [
+        {
+          "title": "Graph Neural Networks for Internet Finance Fraud",
+          "originalTitle": "(46 封私信 / 2 条消息) 中科院敖翔：如何用图神经网络应对互联网金融欺诈？ - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/536942199",
+          "domain": "zhuanlan.zhihu.com"
+        },
+        {
+          "title": "AI Modeling from Scratch with Trae and Blender MCP",
+          "originalTitle": "3D 小白亲测：用 Trae + Blender MCP 从零开始 AI 建模（附踩坑指南） - 文章 - 开发者社区 - 火山引擎",
+          "href": "https://developer.volcengine.com/articles/7517866334034591755",
+          "domain": "developer.volcengine.com"
+        },
+        {
+          "title": "Deploying YOLOv8 in 10 Minutes",
+          "originalTitle": "10分钟部署一个模型：YOLOV8从环境配置到模型部署优化_yolo模型部署-CSDN博客",
+          "href": "https://blog.csdn.net/YYDS_WV/article/details/142407998",
+          "domain": "blog.csdn.net"
+        }
+      ]
+    },
+    {
+      "id": "other-research",
+      "title": "Other Research",
+      "originalTitle": "其他研究",
+      "parent": "Technology",
+      "note": "Datasets, keyframe extraction, pose training, graph databases, and supporting research utilities.",
+      "span": "wide",
+      "count": 7,
+      "links": [
+        {
+          "title": "A Living Fake News Dataset List for 2024",
+          "originalTitle": "2024 最全Fake News 虚假新闻数据集-持续更新 - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/714316753",
+          "domain": "zhuanlan.zhihu.com"
+        },
+        {
+          "title": "Quickstart - Dgraph",
+          "originalTitle": "Quickstart - Dgraph",
+          "href": "https://docs.hypermode.com/dgraph/quickstart",
+          "domain": "docs.hypermode.com"
+        },
+        {
+          "title": "Keyframe Extraction",
+          "originalTitle": "关键帧提取-CSDN博客",
+          "href": "https://blog.csdn.net/Ailberty/article/details/109581016",
+          "domain": "blog.csdn.net"
+        },
+        {
+          "title": "Three Open-Source Methods for Video Keyframes",
+          "originalTitle": "【三秒上手】视频关键帧提取（三种开源方法） - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/4849194915",
+          "domain": "zhuanlan.zhihu.com"
+        },
+        {
+          "title": "Training YOLOv8-Pose on a Custom Dataset",
+          "originalTitle": "yolov8-pose 训练自己的数据集（机械臂关键点检测） - 知乎",
+          "href": "https://zhuanlan.zhihu.com/p/681395193",
+          "domain": "zhuanlan.zhihu.com"
+        },
+        {
+          "title": "Cleaning Disk Space on AutoDL",
+          "originalTitle": "AutoDL清理磁盘空间",
+          "href": "https://www.autodl.com/docs/qa1/",
+          "domain": "autodl.com"
+        },
+        {
+          "title": "Connecting to the SCUT Campus Network from Home",
+          "originalTitle": "【华南理工大学】PC客户端配置-如何在家连接学校的校园网_华南理工大学校园网客户端-CSDN博客",
+          "href": "https://blog.csdn.net/zxc120389574/article/details/105801256",
+          "domain": "blog.csdn.net"
+        }
+      ]
+    }
+  ],
+  "untranslated": []
+}
