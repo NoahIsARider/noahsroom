@@ -1,37 +1,50 @@
-# noahisarider knowledge base navigation
+# zhou fangya works archive
 
-This project builds a static navigation page from the `Knowlegde Base` section inside the exported bookmarks file.
+This project is now a static portfolio archive rather than a bookmark index.
 
-## files that matter
+## what the build does
 
-- `favorites_7_28_26.html`: source bookmarks export
-- `scripts/build.mjs`: build script
-- `index.html`: generated page in the project root
-- `dist/`: generated static deployment output
+- reads `content/works-manifest.json`
+- reads sanitized article fragments from `content/works/*.html`
+- generates the homepage at `index.html`
+- generates public detail pages at `works/*.html`
+- writes deployable output to `dist/`
 
-## how to update the site each time
+## source pipeline
 
-1. Replace the old bookmarks export with the new one.
-   - Keep the file in the project root.
-   - If you want to keep using the current script without changes, keep the file name as `favorites_7_28_26.html`.
+Public article content is produced by:
 
-2. Run the build command in this folder:
+- `scripts/import_works.py`
+
+That script:
+
+- reads the original Word documents
+- converts legacy `.doc` files through Word automation when needed
+- extracts embedded images
+- removes sensitive cover information and course metadata
+- writes cleaned fragments into `content/works/`
+
+## useful folders
+
+- `assets/works/`: extracted article images
+- `content/works/`: sanitized HTML fragments
+- `works/`: generated public article pages
+- `dist/`: deployable static output
+
+## commands
 
 ```bash
 npm run build
 ```
 
-3. After the build finishes, these files will be refreshed automatically:
-   - `index.html`
-   - `knowledge-base.json`
-   - everything inside `dist/`
+Rebuilds the homepage, detail pages, and `dist/`.
 
-4. Deploy the contents of `dist/` with your action workflow.
+```bash
+python "scripts/import_works.py"
+```
 
-## notes
+Re-imports the original documents, regenerates fragments, and refreshes extracted images.
 
-- The page only reads the `Knowlegde Base` branch from the bookmarks file.
-- If you rename the bookmarks export file, update the `inputPath` in `scripts/build.mjs`.
-- If you change the visual style, rebuild again before pushing.
-- Codeberg Actions workflow lives in `.forgejo/workflows/deploy.yml`.
-- This repository is currently set up to deploy from the `pages` branch to `https://NoahIsARider.codeberg.page/`.
+## deployment note
+
+Deploy the contents of `dist/` with the existing workflow in `.forgejo/workflows/deploy.yml`.
