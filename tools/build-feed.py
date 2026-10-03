@@ -19,8 +19,8 @@ from pathlib import Path
 
 OWNER = "NoahIsARider"
 ORG = "LandslideLab"
-SITE = "https://noahisarider.github.io/noahsroom"
-MIRROR = "https://noahisarider.codeberg.page"
+# the room lives on Codeberg only — the GitHub copy was retired on purpose
+SITE = "https://noahisarider.codeberg.page"
 OUT = Path(__file__).resolve().parent.parent / "feed.xml"
 CST = timezone(timedelta(hours=8))
 
@@ -45,8 +45,6 @@ PAGES = [
     ("Noah's Room — the duel: the new log", f"{SITE}/duel/",
      "The new log of the room: two halves of one desk — the making half and the remembering half — meet in "
      "the violet hour and fight over what is worth keeping. Nothing there is a link."),
-    ("Noah's Room — the night desk, on Codeberg", f"{MIRROR}/",
-     "The same room kept on Codeberg, plus the duel. Every object is still a door."),
     ("Google Scholar", "https://scholar.google.cz/citations?user=CLf-BNAAAAAJ",
      "Publications and citations. Research: misinformation, LLM agents, human-AI collaborative work."),
     ("GitHub — @NoahIsARider", f"https://github.com/{OWNER}",

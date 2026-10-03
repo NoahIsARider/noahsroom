@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Noah's Room — index</title>
-    <link>https://noahisarider.github.io/noahsroom/</link>
-    <atom:link href="https://noahisarider.github.io/noahsroom/feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://noahisarider.codeberg.page/</link>
+    <atom:link href="https://noahisarider.codeberg.page/feed.xml" rel="self" type="application/rss+xml" />
     <description>Everything of Noah (NoahIsARider) in one file, so that readers and crawlers can find all of it: every page, every account, and the complete list of public repositories.</description>
     <language>en</language>
     <copyright>Noah (NoahIsARider)</copyright>
-    <lastBuildDate>Sat, 03 Oct 2026 21:31:56 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 22:52:11 +0800</lastBuildDate>
     <generator>tools/build-feed.py</generator>
     <ttl>720</ttl>
     <item>
@@ -52,35 +52,27 @@
     </item>
     <item>
       <title>Noah's Room — the night desk</title>
-      <link>https://noahisarider.github.io/noahsroom/</link>
-      <guid isPermaLink="true">https://noahisarider.github.io/noahsroom/</guid>
+      <link>https://noahisarider.codeberg.page/</link>
+      <guid isPermaLink="true">https://noahisarider.codeberg.page/</guid>
       <category>page</category>
       <category>account</category>
       <description>A hand-assembled room on the personal web; every object is a door to a different corner.</description>
     </item>
     <item>
       <title>Noah's Room — the tale: the three odd friends</title>
-      <link>https://noahisarider.github.io/noahsroom/logs.html</link>
-      <guid isPermaLink="true">https://noahisarider.github.io/noahsroom/logs.html</guid>
+      <link>https://noahisarider.codeberg.page/logs.html</link>
+      <guid isPermaLink="true">https://noahisarider.codeberg.page/logs.html</guid>
       <category>page</category>
       <category>account</category>
       <description>The room's own dark fairy tale: the three odd friends on the shelf above the desk, what they do with the night, and why the moon is a door.</description>
     </item>
     <item>
       <title>Noah's Room — the duel: the new log</title>
-      <link>https://noahisarider.github.io/noahsroom/duel/</link>
-      <guid isPermaLink="true">https://noahisarider.github.io/noahsroom/duel/</guid>
+      <link>https://noahisarider.codeberg.page/duel/</link>
+      <guid isPermaLink="true">https://noahisarider.codeberg.page/duel/</guid>
       <category>page</category>
       <category>account</category>
       <description>The new log of the room: two halves of one desk — the making half and the remembering half — meet in the violet hour and fight over what is worth keeping. Nothing there is a link.</description>
-    </item>
-    <item>
-      <title>Noah's Room — the night desk, on Codeberg</title>
-      <link>https://noahisarider.codeberg.page/</link>
-      <guid isPermaLink="true">https://noahisarider.codeberg.page/</guid>
-      <category>page</category>
-      <category>account</category>
-      <description>The same room kept on Codeberg, plus the duel. Every object is still a door.</description>
     </item>
     <item>
       <title>Google Scholar</title>
@@ -211,6 +203,15 @@
       <description>A harbour blog.</description>
     </item>
     <item>
+      <title>repository · NoahIsARider: NoahIsARider/noahsroom</title>
+      <link>https://github.com/NoahIsARider/noahsroom</link>
+      <guid isPermaLink="true">https://github.com/NoahIsARider/noahsroom</guid>
+      <pubDate>Sat, 03 Oct 2026 22:10:58 +0800</pubDate>
+      <category>repository · NoahIsARider</category>
+      <category>HTML</category>
+      <description>A night desk on the personal web — every object is a door. Static HTML/CSS/JS. (HTML; created 2026-08-06; last push 2026-10-03)</description>
+    </item>
+    <item>
       <title>repository · NoahIsARider: NoahIsARider/oblivio</title>
       <link>https://github.com/NoahIsARider/oblivio</link>
       <guid isPermaLink="true">https://github.com/NoahIsARider/oblivio</guid>
@@ -227,15 +228,6 @@
       <category>repository · NoahIsARider</category>
       <category>CSS</category>
       <description>NoahIsARider's Homepage (CSS; created 2026-04-30; last push 2026-10-02)</description>
-    </item>
-    <item>
-      <title>repository · NoahIsARider: NoahIsARider/noahsroom</title>
-      <link>https://github.com/NoahIsARider/noahsroom</link>
-      <guid isPermaLink="true">https://github.com/NoahIsARider/noahsroom</guid>
-      <pubDate>Fri, 02 Oct 2026 20:59:06 +0800</pubDate>
-      <category>repository · NoahIsARider</category>
-      <category>HTML</category>
-      <description>A night desk on the personal web — every object is a door. Static HTML/CSS/JS. (HTML; created 2026-08-06; last push 2026-10-02)</description>
     </item>
     <item>
       <title>repository · NoahIsARider: NoahIsARider/noahsblog [fork]</title>
@@ -1092,16 +1084,16 @@
     </item>
     <item>
       <title>tale: the duel — the room's new log</title>
-      <link>https://noahisarider.github.io/noahsroom/duel/</link>
-      <guid isPermaLink="true">https://noahisarider.github.io/noahsroom/duel/</guid>
+      <link>https://noahisarider.codeberg.page/duel/</link>
+      <guid isPermaLink="true">https://noahisarider.codeberg.page/duel/</guid>
       <pubDate>Sat, 03 Oct 2026 21:40:00 +0800</pubDate>
       <category>tale</category>
       <description>The desk has two tenants. Signal Hound makes things; Archive Leviathan remembers them. When the lamp goes off they meet on the same violet floor and take opposite sides of one question — what is worth keeping — and neither of them wins, and both of them get sharper. The move list is a skill list; nothing on the page is a link, because doors belong to the room and the arena only keeps consequences.</description>
     </item>
     <item>
       <title>tale: the three odd friends — a dark fairy tale</title>
-      <link>https://noahisarider.github.io/noahsroom/logs.html</link>
-      <guid isPermaLink="true">https://noahisarider.github.io/noahsroom/logs.html</guid>
+      <link>https://noahisarider.codeberg.page/logs.html</link>
+      <guid isPermaLink="true">https://noahisarider.codeberg.page/logs.html</guid>
       <pubDate>Fri, 02 Oct 2026 03:04:00 +0800</pubDate>
       <category>tale</category>
       <description>There is a room at the top of a city that never quite turns its lights off, and on a shelf above the desk live three creatures who were not made properly: a violet thing with one button for an eye, a moth sewn out of cobalt thread and told it was made to be eaten, and a rabbit with three eyes that blinks with the wrong one on purpose. This is their story — the night shift they keep, the moon they agreed never to knock on, and the way you can tell you are welcome here.</description>
