@@ -60,6 +60,42 @@ const writingSlugs = new Set([
   "software-engineering-farther-horizons",
 ]);
 
+const portalTeams = [
+  {
+    side: "signal",
+    monster: "SIGNAL HOUND",
+    subtitle: "CREATIVE CIRCUIT",
+    links: [
+      ["PERSONAL PAGE", "PROFILE / CV", "https://noahisarider.github.io/"],
+      ["BLOGS", "LONG-FORM SIGNAL", "https://noahsblog.pages.dev"],
+      ["PORTFOLIO", "SELECTED BUILDS", "https://noahisarider.github.io/oblivio/portfolio"],
+      ["OBLIVIO", "THE OTHER DOOR", "https://noahisarider.github.io/oblivio"],
+      ["GOODREADS", "READING LOG", "https://www.goodreads.com/ratkingsyndrome"],
+      ["LETTERBOXD", "FILM LOG", "https://letterboxd.com/NoahIsARider"],
+      ["RECORD CLUB", "LISTENING LOG", "https://record.club/NoahIsARider"],
+      ["ITCH.IO", "SMALL PLAYABLE THINGS", "https://noahisarider.itch.io"],
+      ["STEAM", "GAME LIBRARY", "https://steamcommunity.com/id/noahisarider"],
+    ],
+  },
+  {
+    side: "archive",
+    monster: "ARCHIVE LEVIATHAN",
+    subtitle: "RESEARCH CIRCUIT",
+    links: [
+      ["GOOGLE SCHOLAR", "PAPERS / CITATIONS", "https://scholar.google.cz/citations?user=CLf-BNAAAAAJ"],
+      ["SKILLS & TOOLS", "THE INSTRUMENT PANEL", "https://noahisarider.github.io/NoahIsARider/skills.html"],
+      ["WORKS ARCHIVE", "32 PUBLIC TEXTS", "archive.html"],
+      ["GITHUB", "CODE / NOTEBOOKS", "https://github.com/NoahIsARider"],
+      ["CODEBERG", "THE OTHER FORGE", "https://codeberg.org/NoahIsARider"],
+      ["LANDSLIDE LAB", "STRANGER EXPERIMENTS", "https://github.com/LandslideLab"],
+      ["NOAH'S ROOM", "NIGHT-DESK PORTAL", "https://noahisarider.github.io/noahsroom/"],
+      ["X / TWITTER", "SHORT SIGNALS", "https://x.com/NoahIsARider"],
+      ["MASTODON", "FEDERATED SIGNAL", "https://mastodon.social/@noahisarider"],
+      ["BLUESKY", "OPEN SKY SIGNAL", "https://bsky.app/profile/noahisarider.bsky.social"],
+    ],
+  },
+];
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -214,23 +250,113 @@ function renderSection(section) {
     </article>`;
 }
 
+function renderPortalLinks(team) {
+  return team.links
+    .map(([label, note, href], index) => {
+      const external = /^https?:/i.test(href);
+      return `<a class="command-item" href="${escapeAttribute(href)}"${external ? ' target="_blank" rel="noreferrer"' : ""} data-side="${escapeAttribute(team.side)}" data-index="${index}" data-note="${escapeAttribute(note)}">
+        <span class="command-cursor" aria-hidden="true">▶</span>
+        <span class="command-number">${String(index + 1).padStart(2, "0")}</span>
+        <span class="command-copy"><strong>${escapeHtml(label)}</strong><small>${escapeHtml(note)}</small></span>
+      </a>`;
+    })
+    .join("\n");
+}
+
 function renderHomePage(data) {
+  const [signal, archive] = portalTeams;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>oblivion is freedom</title>
-  <meta name="description" content="A reading wall of selected works adapted from source documents and published in the existing archive style.">
+  <title>NOAHISARIDER // LINK DUEL</title>
+  <meta name="description" content="NoahIsARider's personal link portal — choose a circuit and enter the duel.">
+  <meta name="theme-color" content="#070718">
+  <link rel="icon" type="image/png" href="${iconName}">
+  <link rel="apple-touch-icon" href="${iconName}">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="duel-page">
+  <a class="skip-link" href="#commands">Skip to command menu</a>
+  <main class="game-screen" id="top" data-active-side="signal">
+    <div class="arena" aria-hidden="true">
+      <img class="arena-bg" src="assets/duel/arena.png" alt="">
+      <div class="fighter-sprite fighter-sprite--signal">
+        <img class="fighter-trail" src="assets/duel/signal-trail.png" alt="">
+        <img class="fighter-body" src="assets/duel/signal-hound.png" alt="">
+      </div>
+      <div class="fighter-sprite fighter-sprite--archive">
+        <img class="fighter-trail" src="assets/duel/archive-trail.png" alt="">
+        <img class="fighter-body" src="assets/duel/archive-leviathan.png" alt="">
+      </div>
+      <img class="clash-sprite" src="assets/duel/clash.png" alt="">
+      <div class="screen-flash"></div>
+    </div>
+    <div class="crt-lines" aria-hidden="true"></div>
+
+    <header class="game-title">
+      <small>NOAHISARIDER PRESENTS</small>
+      <h1>LINK DUEL</h1>
+      <p>ROUND ∞ · THE WEB BETWEEN WORLDS</p>
+    </header>
+
+    <section class="hud-layer" aria-label="Choose a fighter">
+      <button class="hud hud--signal is-active" type="button" data-team-select="signal" aria-pressed="true">
+        <img src="assets/duel/command-frame.png" alt="">
+        <span class="hud-copy"><b>01 · ${escapeHtml(signal.monster)}</b><i></i><small>${escapeHtml(signal.subtitle)}</small></span>
+      </button>
+      <div class="round-mark" aria-hidden="true"><span>VS</span></div>
+      <button class="hud hud--archive" type="button" data-team-select="archive" aria-pressed="false">
+        <img src="assets/duel/command-frame.png" alt="">
+        <span class="hud-copy"><b>02 · ${escapeHtml(archive.monster)}</b><i></i><small>${escapeHtml(archive.subtitle)}</small></span>
+      </button>
+    </section>
+
+    <section class="command-console" id="commands" aria-label="Battle command menu">
+      <img class="command-frame-art" src="assets/duel/command-frame.png" alt="" aria-hidden="true">
+      <div class="command-content">
+        <header class="command-header">
+          <p>COMMAND PHASE <span id="turn-side">PLAYER 01</span></p>
+          <h2 id="command-title">${escapeHtml(signal.subtitle)}</h2>
+          <output id="command-readout">CHOOSE A MOVE</output>
+        </header>
+        <nav class="command-list is-active" data-command-list="signal" aria-label="Creative circuit commands">
+          ${renderPortalLinks(signal)}
+        </nav>
+        <nav class="command-list" data-command-list="archive" aria-label="Research circuit commands" hidden>
+          ${renderPortalLinks(archive)}
+        </nav>
+        <footer class="command-help">
+          <span>↑↓ SELECT</span><span>←→ SWITCH FIGHTER</span><span>ENTER OPEN</span>
+          <a href="mailto:noahchou2005@gmail.com">CONTACT</a>
+          <span>${data.stats.totalLinks} WORKS SAVED</span>
+        </footer>
+      </div>
+    </section>
+  </main>
+  <script src="assets/duel.js"></script>
+</body>
+</html>`;
+}
+
+function renderArchivePage(data) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WORKS ARCHIVE // NOAHISARIDER</title>
+  <meta name="description" content="NoahIsARider's public archive of essays, research, writing, systems and talks.">
   <meta name="theme-color" content="#e7a1c4">
   <link rel="icon" type="image/png" href="${iconName}">
   <link rel="apple-touch-icon" href="${iconName}">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="archive-page">
   <div class="page-shell">
     <header class="topbar" id="top">
-      <a class="brand" href="${escapeAttribute(data.site.ownerUrl)}" target="_blank" rel="noreferrer">${escapeHtml(data.site.owner)}</a>
+      <a class="brand" href="index.html">← link duel</a>
       <nav class="topnav" aria-label="Knowledge base sections">
         ${renderTopNav(data.sections)}
       </nav>
@@ -307,19 +433,19 @@ function renderWorkPage(item, items) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${escapeHtml(item.title)} | oblivion is freedom</title>
+  <title>${escapeHtml(item.title)} | NoahIsARider</title>
   <meta name="description" content="${escapeAttribute(excerptForList(item.excerpt))}">
   <meta name="theme-color" content="#e7a1c4">
   <link rel="icon" type="image/png" href="../${iconName}">
   <link rel="apple-touch-icon" href="../${iconName}">
   <link rel="stylesheet" href="../styles.css">
 </head>
-<body>
+<body class="work-page">
   <div class="page-shell work-page">
     <header class="topbar" id="top">
       <a class="brand" href="https://github.com/NoahIsARider" target="_blank" rel="noreferrer">noahisarider</a>
       <nav class="topnav" aria-label="Page navigation">
-        <a href="../index.html">Archive</a>
+        <a href="../archive.html">Archive</a>
         <a href="#article">Article</a>
       </nav>
       <p class="topbar-status">${escapeHtml(item.year)}<br>${item.imageCount > 0 ? `${item.imageCount} images` : "text only"}</p>
@@ -340,7 +466,7 @@ function renderWorkPage(item, items) {
       </article>
       <article class="intro-block">
         <h2>Return</h2>
-        <p><a href="../index.html">Back to the archive index</a><br>Read in the same static public edition.</p>
+        <p><a href="../archive.html">Back to the archive index</a><br>Read in the same static public edition.</p>
       </article>
     </section>
 
@@ -367,7 +493,7 @@ ${relatedMarkup || '          <li class="link-item"><span class="link-meta">No r
 
     <footer class="footer">
       <p>Built for static deployment and action-based publishing.</p>
-      <p><a href="../index.html">Back to archive</a></p>
+      <p><a href="../archive.html">Back to archive</a></p>
     </footer>
   </div>
 </body>
@@ -393,13 +519,15 @@ function writeFile(targetPath, content) {
   fs.writeFileSync(targetPath, content, "utf8");
 }
 
-function writeOutputs(homePage, json, items) {
+function writeOutputs(homePage, archivePage, json, items) {
   resetDir(distDir);
   resetDir(worksDir);
 
   writeFile(path.join(rootDir, "index.html"), homePage);
+  writeFile(path.join(rootDir, "archive.html"), archivePage);
   writeFile(path.join(rootDir, "knowledge-base.json"), json);
   writeFile(path.join(distDir, "index.html"), homePage);
+  writeFile(path.join(distDir, "archive.html"), archivePage);
   writeFile(path.join(distDir, "knowledge-base.json"), json);
 
   fs.copyFileSync(stylesPath, path.join(distDir, "styles.css"));
@@ -428,8 +556,9 @@ function main() {
   const data = buildData(items);
   const json = `${JSON.stringify(data, null, 2)}\n`;
   const homePage = renderHomePage(data);
-  writeOutputs(homePage, json, items);
-  console.log(`Generated index.html, knowledge-base.json, and ${items.length} work pages with the existing archive layout.`);
+  const archivePage = renderArchivePage(data);
+  writeOutputs(homePage, archivePage, json, items);
+  console.log(`Generated monster link portal, archive.html, knowledge-base.json, and ${items.length} work pages.`);
 }
 
 main();
