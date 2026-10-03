@@ -21,7 +21,7 @@ OWNER = "NoahIsARider"
 ORG = "LandslideLab"
 # Codeberg is the canonical copy of the room; the GitHub mirror is kept in step with it
 SITE = "https://noahisarider.codeberg.page"
-MIRROR = "https://noahisarider.github.io/noahsark-room"
+MIRROR = "https://noahisarider.github.io/noahsroom"
 OUT = Path(__file__).resolve().parent.parent / "feed.xml"
 CST = timezone(timedelta(hours=8))
 
@@ -38,15 +38,15 @@ PAGES = [
      "Apps, experiments and small machines, shown rather than listed."),
     ("oblivio — my other corner of the web", "https://noahisarider.github.io/oblivio",
      "Oblivion is freedom and no one lasts forever."),
-    ("NOAHSARK — the night desk", f"{SITE}/",
+    ("Noah's Room — the night desk", f"{SITE}/",
      "A hand-assembled room on the personal web; every object is a door to a different corner."),
-    ("NOAHSARK — the tale: the three odd friends", f"{SITE}/logs.html",
+    ("Noah's Room — the tale: the three odd friends", f"{SITE}/logs.html",
      "The room's own dark fairy tale: the three odd friends on the shelf above the desk, what they do "
      "with the night, and why the moon is a door."),
-    ("NOAHSARK — the duel: the new log", f"{SITE}/duel/",
+    ("Noah's Room — the duel: the new log", f"{SITE}/duel/",
      "The new log of the room: two halves of one desk — the making half and the remembering half — meet in "
      "the violet hour and fight over what is worth keeping. Nothing there is a link."),
-    ("NOAHSARK — the same desk, mirrored on GitHub", f"{MIRROR}/",
+    ("Noah's Room — the same room, mirrored on GitHub", f"{MIRROR}/",
      "The GitHub copy of the same room, deployed by GitHub Actions. Both copies are updated together."),
     ("Google Scholar", "https://scholar.google.cz/citations?user=CLf-BNAAAAAJ",
      "Publications and citations. Research: misinformation, LLM agents, human-AI collaborative work."),
@@ -157,7 +157,7 @@ def build():
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
         "  <channel>",
-        "    <title>NOAHSARK — index</title>",
+        "    <title>Noah's Room — index</title>",
         f"    <link>{SITE}/</link>",
         f'    <atom:link href="{SITE}/feed.xml" rel="self" type="application/rss+xml" />',
         "    <description>Everything of Noah (NoahIsARider) in one file, so that readers and crawlers can find "

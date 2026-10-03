@@ -4,13 +4,13 @@
 
 NoahIsARider（Noah）的个人主页。**一个房间，两层**。
 
-**这个项目叫 NOAHSARK**（方舟式的统合项目）：房间是它的门面，`duel/`、`logs.html`、`blazingstar/` 都在同一条船上。标签页标题就是 `NOAHSARK`。
+**标签页标题是 `NOAH'S ROOM`**（这个房间的名字；duel 与 the tale 也挂在它下面）。
 
 线上两份，**内容必须一致，改完一起推**：
 - 主：<https://noahisarider.codeberg.page/> — Codeberg 仓库 `NoahIsARider/pages`（分支 `pages`），推送即发布，无需 CI。
-- 镜像：<https://noahisarider.github.io/noahsark-room/> — GitHub 仓库 `NoahIsARider/noahsark-room`（分支 `main`），由 `.github/workflows/pages.yml` 走 Actions 发布。
+- 镜像：<https://noahisarider.github.io/noahsroom/> — GitHub 仓库 `NoahIsARider/noahsroom`（分支 `main`），由 `.github/workflows/pages.yml` 走 Actions 发布。
 
-（`noahsark` 这个名字被私有备份仓库 `NoahsArk` 占了，GitHub 不区分大小写，所以站点仓库叫 `noahsark-room`。早期镜像 `noahsroom` 已于 2026-10-03 删除。）
+（这个名字一度想改成 NOAHSARK，但 `NoahsArk` 是私有备份仓库的名字，GitHub 仓库名不区分大小写，重名会撞车；2026-10-03 决定不改，保持 `NOAH'S ROOM` / `noahsroom`。）
 
 - `/`（`index.html`）— Y2K/霓虹夜桌：全屏 16:9 场景，由独立图层和抠图素材拼成，每个物件是一个"门"，中控是那台 CRT。
 - `/relic/`（`relic/index.html`）— 上一版的"三个灯光的房间"（写实 / 黄昏 / 梵高油画三张照片 + 手写批注 + Rough.js 手绘相框），整份归档保留，只能通过隐藏入口进入。**该页自身品牌与 `<title>` 都叫 relic**（原来是 noahsroom），目录和 URL 也已是 `relic/`；旧的 `/room/` 保留一个跳转壳（meta refresh + JS 替换），不会 404。
@@ -98,7 +98,7 @@ NoahIsARider（Noah）的个人主页。**一个房间，两层**。
 
 ## 变更记录
 
-- 2026-10-03（五）：项目定名 **NOAHSARK**（标签页、the tale 的 kicker、duel 的 eyebrow 全改）；GitHub 侧重建为 `noahsark-room` 并由 GitHub Actions 发布，两边一起更新；`feed.xml` 重新生成（标题改 NOAHSARK，加回 GitHub 镜像条目）。
+- 2026-10-03（五）：GitHub 侧重建 `noahsroom` 并由 GitHub Actions 发布，两边一起更新；`feed.xml` 重新生成（加回 GitHub 镜像条目）。品牌一度改叫 NOAHSARK，同日撤回——保持 `NOAH'S ROOM`。
 - 2026-10-03（四）：坐标做成第二个隐藏入口——十次点击后变成按钮，再按整页丢掉信号（canvas 噪点 + 扫描线 + `signal-drop`），1.56s 后恢复。
 - 2026-10-03（三）：GitHub 上的 `noahsroom` 镜像**删除**（`gh repo delete`，需要 `delete_repo` scope）；`tools/build-feed.py` 的 `SITE` 改指 Codeberg、去掉镜像条目，feed 重新生成后 github.io/noahsroom 残留 0 处。
 - 2026-10-03（二）：duel 重做成**一屏一台机器**——`html/body` 锁 1 屏高、页面永不滚动；HUD 牌匾从 544×181 缩到 ~243×81（角色名 + 细血条），格斗位因此从 245px 高变成 464px；原先堆在页脚的设定文字与画廊全部搬进**浮窗**（底栏 8 个按钮 + 每角色/每招式的卡），`ESC`／点窗外／`✕ CLOSE` 关闭。
