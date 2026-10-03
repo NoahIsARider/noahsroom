@@ -1,8 +1,8 @@
-/* THE DUEL — full-screen cabinet. Top and bottom use the same spiky frame art, so
-   the whole page reads as one arcade machine instead of a landing page.
-   Fit rules: art lives in boxes that keep its aspect ratio, the fighters are sized
-   by the height of their own row (so they can never grow up into the HUD), and the
-   only scrolling region is a move list, which scrolls inside itself. */
+/* THE DUEL — one screen, one cabinet.
+   Fit rules: the page itself never scrolls (html/body are exactly one viewport tall,
+   overflow hidden); everything that does not fit in the arena or the command menu
+   lives in a floating window, opened from a button. The two fighters are sized by the
+   height of the row that is left over, so shrinking the HUD makes them bigger. */
 
 :root {
   --night: #02020a;
@@ -13,19 +13,20 @@
   --violet: #8f52ff;
   --acid: #c8ff36;
   --line: rgba(214, 218, 255, .26);
-  --panel: rgba(5, 6, 20, .88);
+  --panel: rgba(5, 6, 20, .9);
   --mono: "IBM Plex Mono", Consolas, monospace;
   --display: "Anton", "Black Ops One", Impact, sans-serif;
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html, body.duel { height: 100%; overflow: hidden; }
 body.duel {
-  margin: 0; color: var(--ink); background: var(--night);
-  font: 700 clamp(.84rem, .5vw + .7rem, 1.02rem)/1.5 var(--mono);
+  margin: 0; color: var(--ink); background: var(--night); overscroll-behavior: none;
+  font: 700 clamp(.78rem, .4vw + .66rem, .98rem)/1.45 var(--mono);
 }
 img { max-width: 100%; display: block; }
 a { color: var(--acid); }
+:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
 .skip {
   position: fixed; z-index: 90; top: .6rem; left: .6rem; padding: .6rem .9rem;
   color: var(--night); background: var(--acid); font: 700 .78rem/1 var(--mono);
@@ -33,26 +34,26 @@ a { color: var(--acid); }
 }
 .skip:focus { transform: none; }
 
-/* ---------------- cabinet ---------------- */
+/* ---------------- cabinet: title, hud, arena, console ---------------- */
 .cabinet {
   position: relative; isolation: isolate; overflow: hidden;
-  min-height: 100svh; padding: .7rem clamp(.6rem, 1.8vw, 1.6rem) .8rem;
-  display: grid; gap: .5rem;
-  grid-template-rows: auto auto minmax(7svh, 1fr) auto;
+  height: 100svh; padding: .45rem clamp(.5rem, 1.4vw, 1.2rem) .5rem;
+  display: grid; gap: .3rem;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
 }
 .arena-bg {
   position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%;
-  object-fit: cover; filter: saturate(.98) brightness(.68) contrast(1.1);
+  object-fit: cover; filter: saturate(.98) brightness(.7) contrast(1.1);
 }
 .vignette {
   position: absolute; inset: 0; z-index: -2; pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(2, 2, 10, .74), transparent 20%, transparent 52%, rgba(2, 2, 10, .86) 84%, #02020a),
-    radial-gradient(circle at 50% 44%, transparent 0 32%, rgba(2, 2, 12, .48) 76%);
+    linear-gradient(180deg, rgba(2, 2, 10, .76), transparent 18%, transparent 54%, rgba(2, 2, 10, .84) 86%, #02020a),
+    radial-gradient(circle at 50% 44%, transparent 0 34%, rgba(2, 2, 12, .46) 78%);
 }
 .crt {
-  position: absolute; inset: 0; z-index: 30; pointer-events: none; opacity: .13;
-  background: repeating-linear-gradient(180deg, transparent 0 3px, rgba(0, 0, 0, .58) 4px);
+  position: absolute; inset: 0; z-index: 30; pointer-events: none; opacity: .12;
+  background: repeating-linear-gradient(180deg, transparent 0 3px, rgba(0, 0, 0, .55) 4px);
 }
 .flash { position: absolute; inset: 0; z-index: 31; pointer-events: none; opacity: 0; background: #fff; mix-blend-mode: overlay; }
 .cabinet.is-hit { animation: shake .24s steps(2, end); }
@@ -63,29 +64,33 @@ a { color: var(--acid); }
 }
 @keyframes flash { 0%, 100% { opacity: 0; } 35% { opacity: .5; } 60% { opacity: .08; } }
 
-/* ---------------- title ---------------- */
-.titlebar { position: relative; z-index: 4; text-align: center; }
-.titlebar h1 {
-  display: inline-block; margin: .05rem 0; transform: scaleY(1.1); transform-origin: center;
-  font: 400 clamp(1.9rem, 5vw, 3.9rem)/.86 var(--display);
-  letter-spacing: .01em; color: #f7f2e2; -webkit-text-stroke: 1px #14142e;
-  filter: drop-shadow(4px 4px 0 rgba(255, 53, 189, .72));
-}
-.eyebrow, .tagline {
-  margin: 0; color: var(--acid); font-size: clamp(.54rem, .85vw, .74rem);
-  font-weight: 700; letter-spacing: .28em; text-transform: uppercase;
-}
-.tagline { color: var(--muted); letter-spacing: .2em; }
+/* ---------------- title: three tight lines, back link on the left ---------------- */
+.titlebar { position: relative; z-index: 4; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 0 .6rem; }
 .back {
-  position: absolute; left: 0; top: .15rem; color: var(--acid); font-size: .7rem;
+  grid-column: 1; grid-row: 1 / span 3; align-self: center;
+  color: var(--acid); font-size: clamp(.5rem, .62vw, .68rem);
   font-weight: 700; letter-spacing: .14em; text-decoration: none;
 }
 .back:hover, .back:focus-visible { color: var(--night); background: var(--acid); }
+.eyebrow, .tagline {
+  grid-column: 2; margin: 0; justify-self: center; text-align: center;
+  font-size: clamp(.44rem, .6vw, .62rem); font-weight: 700;
+  letter-spacing: .26em; text-transform: uppercase; color: var(--acid);
+}
+.titlebar h1 {
+  grid-column: 2; margin: .02rem 0; justify-self: center;
+  font: 400 clamp(1.05rem, 2.7vw, 2.1rem)/.9 var(--display);
+  letter-spacing: .02em; color: #f7f2e2; -webkit-text-stroke: 1px #14142e;
+  transform: scaleY(1.12); transform-origin: center;
+  filter: drop-shadow(3px 3px 0 rgba(255, 53, 189, .72));
+}
+.tagline { color: var(--muted); letter-spacing: .18em; }
 
-/* ---------------- fighter HUD: the frame art is the plaque ---------------- */
-.hud { position: relative; z-index: 4; display: grid; grid-template-columns: 1fr auto 1fr; gap: .6rem; align-items: center; }
+/* ---------------- fighter HUD: small plaques (the arena wants the height) ---------------- */
+.hud { position: relative; z-index: 4; display: grid; grid-template-columns: 1fr auto 1fr; gap: .5rem; align-items: center; }
 .hud-card {
-  position: relative; width: min(34rem, 40vw); aspect-ratio: 2172 / 724;
+  position: relative; height: clamp(46px, 9svh, 92px); width: auto;
+  aspect-ratio: 2172 / 724;
   padding: 0; border: 0; background: transparent; cursor: pointer;
   filter: saturate(.72) brightness(.74); transition: filter .12s, transform .12s;
   container-type: inline-size;
@@ -95,23 +100,20 @@ a { color: var(--acid); }
 .hud-card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
 .hud-card--archive > img { transform: scaleX(-1); }
 .hud-copy {
-  position: absolute; inset: 25% 20% 25% 29%;
-  display: flex; flex-direction: column; justify-content: center; gap: .2em;
+  position: absolute; inset: 24% 20% 24% 29%;
+  display: flex; flex-direction: column; justify-content: center; gap: .12em;
   color: var(--ink); text-shadow: 2px 2px 0 #07071a;
 }
-.hud-card--archive .hud-copy { inset: 25% 29% 25% 20%; }
+.hud-card--archive .hud-copy { inset: 24% 29% 24% 20%; }
 .hud-copy b {
   display: block; font-family: var(--display); font-weight: 400;
-  font-size: clamp(.5rem, 3.4cqw, 1.05rem); line-height: .95;
+  font-size: clamp(.52rem, 4.6cqw, 1rem); line-height: .95;
   letter-spacing: .01em; transform: scaleY(1.12); transform-origin: left center;
 }
 .hud-card--archive .hud-copy b { transform-origin: right center; }
-.hud-copy small {
-  font-size: clamp(.36rem, 1.9cqw, .6rem); font-weight: 700;
-  letter-spacing: .18em; text-transform: uppercase;
-}
+.hud-copy small { font-size: clamp(.38rem, 2.7cqw, .64rem); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .hud-copy i {
-  display: block; height: .3em; margin: .1em 0;
+  display: block; height: .26em; margin: .08em 0;
   border: 1px solid rgba(255, 255, 255, .6);
   background: linear-gradient(90deg, var(--cyan), var(--violet), var(--magenta));
 }
@@ -124,16 +126,17 @@ a { color: var(--acid); }
   filter: saturate(1.2) brightness(1.18) drop-shadow(0 0 14px rgba(255, 53, 189, .45));
 }
 .vs {
-  display: grid; place-items: center; width: 2.5rem; aspect-ratio: 1;
-  color: #0a0914; background: var(--acid); font: 400 .95rem/1 var(--display);
+  display: grid; place-items: center; width: clamp(1.5rem, 2.4vw, 2.2rem); aspect-ratio: 1;
+  color: #0a0914; background: var(--acid); font: 400 clamp(.6rem, 1.1vw, .95rem)/1 var(--display);
   clip-path: polygon(50% 0, 62% 30%, 91% 9%, 76% 42%, 100% 51%, 72% 62%, 88% 94%, 57% 75%, 45% 100%, 38% 72%, 5% 91%, 25% 60%, 0 47%, 30% 38%, 13% 7%, 42% 27%);
 }
 
-/* ---------------- the two fighters: sized by their row, never taller ---------------- */
+/* ---------------- the arena: this row takes everything the HUD gives back ---------------- */
 .battlefield { position: relative; z-index: 3; min-height: 0; overflow: hidden; }
 .sprite {
-  position: absolute; bottom: 0; height: 100%; max-width: 46%;
-  display: flex; align-items: flex-end;
+  position: absolute; bottom: 0; height: 100%; max-width: 48%;
+  padding: 0; border: 0; background: transparent; cursor: pointer;
+  display: flex; align-items: flex-end; transition: filter .14s, transform .14s;
 }
 .sprite--signal { left: .5%; }
 .sprite--archive { right: .5%; }
@@ -146,63 +149,73 @@ a { color: var(--acid); }
   object-fit: contain; opacity: .3; mix-blend-mode: screen;
 }
 .sprite--archive .sprite__trail { transform: scaleX(-1); opacity: .24; }
+.sprite:hover, .sprite:focus-visible { filter: brightness(1.14); transform: translateY(-4px); }
 .clash {
-  position: absolute; left: 50%; top: 44%; z-index: 4; width: 16%;
+  position: absolute; left: 50%; top: 46%; z-index: 4; width: 15%;
   transform: translate(-50%, -50%); opacity: .7; mix-blend-mode: screen; pointer-events: none;
 }
 .cabinet[data-active="signal"] .sprite--archive,
-.cabinet[data-active="archive"] .sprite--signal { opacity: .5; filter: saturate(.6); }
+.cabinet[data-active="archive"] .sprite--signal { opacity: .55; filter: saturate(.6); }
 .cabinet.is-hit .clash { opacity: 1; filter: brightness(1.6); }
+.field-hint {
+  position: absolute; left: 50%; bottom: .1rem; z-index: 5; margin: 0; transform: translateX(-50%);
+  color: rgba(183, 178, 207, .5); font-size: clamp(.44rem, .62vw, .6rem);
+  letter-spacing: .18em; white-space: nowrap; pointer-events: none;
+}
 
-/* ---------------- console: the same frame art, used as the bezel ---------------- */
-.console { position: relative; z-index: 4; }
+/* ---------------- console: same frame art, but short ---------------- */
+.console { position: relative; z-index: 4; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: .25rem; }
 .console-frame {
-  position: relative; width: 100%; aspect-ratio: 4.5 / 1; overflow: hidden;
+  position: relative; height: clamp(162px, 26svh, 258px); overflow: hidden;
   container-type: inline-size;
 }
 .console-frame__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .console-inner {
-  position: absolute; inset: 12.5% 20% 12.5% 29%;
-  display: grid; grid-template-rows: auto minmax(0, 1fr); gap: .3rem; min-height: 0;
+  position: absolute; inset: 11.5% 19.5% 11.5% 28.5%;
+  display: grid; grid-template-rows: auto minmax(0, 1fr); gap: .25rem; min-height: 0;
 }
-.turn {
-  margin: 0; color: var(--acid); font-size: clamp(.42rem, .78cqw, .66rem);
-  font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-}
+.turn { margin: 0; color: var(--acid); font-size: clamp(.4rem, .74cqw, .64rem); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .turn span { color: var(--cyan); }
 
-.console-body { display: grid; grid-template-columns: minmax(0, .32fr) minmax(0, 1fr); gap: .3rem .8rem; min-height: 0; }
-.console-side { display: grid; align-content: start; gap: .15rem; min-width: 0; padding-right: .6rem; border-right: 1px solid var(--line); }
-.kicker { margin: 0; color: var(--cyan); font-size: clamp(.44rem, .82cqw, .68rem); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.console-body { display: grid; grid-template-columns: minmax(0, .3fr) minmax(0, 1fr); gap: .25rem .7rem; min-height: 0; }
+.console-side { display: grid; align-content: start; gap: .12rem; min-width: 0; padding-right: .5rem; border-right: 1px solid var(--line); }
+.kicker { margin: 0; color: var(--cyan); font-size: clamp(.4rem, .78cqw, .64rem); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 #move-name {
   display: block; margin: 0; transform: scaleY(1.08); transform-origin: left center;
-  font: 400 clamp(.85rem, 2.7cqw, 2rem)/.95 var(--display);
+  font: 400 clamp(.78rem, 2.4cqw, 1.7rem)/.95 var(--display);
   letter-spacing: .01em; color: #f7f2e2; text-shadow: 2px 2px 0 rgba(255, 53, 189, .55);
 }
-#readout { display: block; color: var(--muted); font-size: clamp(.5rem, 1cqw, .78rem); font-weight: 600; line-height: 1.45; }
+#readout { display: block; color: var(--muted); font-size: clamp(.44rem, .84cqw, .68rem); font-weight: 600; line-height: 1.35; }
+.card-button {
+  justify-self: start; margin-top: .1rem; padding: .16rem .42rem;
+  border: 1px solid rgba(200, 255, 54, .5); background: rgba(6, 8, 24, .92);
+  color: var(--acid); font: inherit; font-size: clamp(.38rem, .66cqw, .58rem);
+  letter-spacing: .1em; text-transform: uppercase; cursor: pointer;
+}
+.card-button:hover, .card-button:focus-visible { color: var(--night); background: var(--acid); }
 
-.console-lists { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem .9rem; min-height: 0; }
+.console-lists { display: grid; grid-template-columns: 1fr 1fr; gap: .25rem .8rem; min-height: 0; }
 .team { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; }
-.team header { display: flex; align-items: baseline; gap: .35rem; padding-bottom: .08rem; border-bottom: 1px solid var(--cyan); }
+.team header { display: flex; align-items: baseline; gap: .3rem; padding-bottom: .06rem; border-bottom: 1px solid var(--cyan); }
 .team--archive header { border-color: var(--magenta); }
-.team header span { color: var(--violet); font-size: clamp(.42rem, .78cqw, .64rem); }
+.team header span { color: var(--violet); font-size: clamp(.38rem, .72cqw, .6rem); }
 .team header h3 {
-  margin: 0; font: 400 clamp(.55rem, 1.2cqw, .95rem)/1 var(--display);
+  margin: 0; font: 400 clamp(.5rem, 1.1cqw, .88rem)/1 var(--display);
   letter-spacing: .04em; transform: scaleY(1.08); transform-origin: left center;
 }
 .team ul {
-  display: grid; align-content: start; gap: .04rem; margin: .2rem 0 0; padding: 0; list-style: none;
-  min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--violet) transparent;
+  display: grid; grid-template-columns: 1fr 1fr; align-content: start; gap: .04rem .4rem;
+  margin: .16rem 0 0; padding: 0; list-style: none; min-height: 0; overflow: hidden;
 }
 .team button {
-  width: 100%; display: grid; grid-template-columns: 1.3rem minmax(0, 1fr); gap: .3rem; align-items: baseline;
-  min-width: 0; padding: .07rem .25rem; border: 1px solid transparent; color: var(--muted);
+  width: 100%; display: grid; grid-template-columns: 1.1rem minmax(0, 1fr); gap: .25rem; align-items: baseline;
+  min-width: 0; padding: .05rem .2rem; border: 1px solid transparent; color: var(--muted);
   background: transparent; text-align: left; font: inherit; cursor: pointer;
 }
-.team button b { color: var(--violet); font-size: clamp(.4rem, .72cqw, .6rem); }
+.team button b { color: var(--violet); font-size: clamp(.36rem, .66cqw, .56rem); }
 .team button span {
-  display: block; min-width: 0; font-size: clamp(.5rem, .95cqw, .78rem); line-height: 1.2;
-  font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  display: block; min-width: 0; font-size: clamp(.44rem, .86cqw, .72rem); line-height: 1.15;
+  font-weight: 700; letter-spacing: .03em; text-transform: uppercase;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .team button small { display: none; }
@@ -217,106 +230,116 @@ a { color: var(--acid); }
 .team button.is-playing { animation: hit .24s steps(2, end) 2; }
 @keyframes hit { 50% { transform: translateX(4px); filter: brightness(1.4); } }
 
+/* ---------------- help bar: keys, ticker, and the buttons that open the cards ---------------- */
 .console-help {
-  display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; align-items: center; justify-content: center;
-  margin-top: .15rem; padding: .35rem .8rem;
-  border: 1px solid rgba(143, 82, 255, .45); background: rgba(4, 5, 18, .82);
-  color: #a9a4c4; font-size: clamp(.5rem, .8cqw, .68rem);
-  font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  display: flex; flex-wrap: wrap; gap: .2rem .7rem; align-items: center;
+  padding: .28rem .55rem; border: 1px solid rgba(143, 82, 255, .45); background: rgba(4, 5, 18, .88);
+  font-size: clamp(.46rem, .64vw, .62rem); font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
 }
-.console-help a { color: var(--acid); text-decoration: none; }
-.console-help a:hover, .console-help a:focus-visible { color: var(--night); background: var(--acid); }
+.keys { color: #a9a4c4; }
+.ticker { flex: 1 1 14rem; min-width: 0; color: var(--acid); letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.help-actions { display: flex; flex-wrap: wrap; gap: .18rem; }
+.help-actions button {
+  padding: .2rem .42rem; border: 1px solid rgba(32, 231, 255, .4); background: rgba(6, 8, 24, .92);
+  color: var(--cyan); font: inherit; font-size: .6rem; letter-spacing: .1em; cursor: pointer;
+}
+.help-actions button:hover, .help-actions button:focus-visible { color: var(--night); background: var(--cyan); }
 
-/* ---------------- the story below the cabinet ---------------- */
-.story { width: min(1180px, 92vw); margin: 0 auto; padding: 2.2rem 0 3rem; display: grid; gap: 1.4rem; }
-.story h2 {
-  margin: 0; font: 400 clamp(1.4rem, 3.2vw, 2.5rem)/1 var(--display);
-  letter-spacing: .02em; color: #f7f2e2; transform: scaleY(1.08); transform-origin: left center;
-  text-shadow: 3px 3px 0 rgba(255, 53, 189, .45);
+/* ---------------- floating windows ---------------- */
+.floats { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: clamp(.5rem, 3vh, 2rem); }
+.floats[hidden] { display: none; }
+.floats__backdrop { position: absolute; inset: 0; background: rgba(2, 2, 10, .8); backdrop-filter: blur(3px); }
+.float {
+  position: relative; width: min(62rem, 94vw); max-height: 90svh;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  border: 1px solid rgba(143, 82, 255, .72);
+  background: linear-gradient(180deg, rgba(9, 10, 28, .98), rgba(3, 4, 14, .99));
+  box-shadow: 0 0 0 1px rgba(32, 231, 255, .18) inset, 0 24px 60px rgba(0, 0, 0, .72);
+  animation: card-in .18s ease-out both;
 }
-.story__text { display: grid; gap: .8rem; max-width: 74ch; color: var(--muted); font-weight: 600; }
-.story__text b { color: var(--ink); }
-.story__text .note { padding-left: .9rem; border-left: 3px solid var(--magenta); font-size: .86rem; }
-.rules h3 { margin: 0 0 .5rem; font: 400 1.2rem/1 var(--display); letter-spacing: .04em; color: var(--acid); transform: scaleY(1.08); transform-origin: left center; }
-.rules ol { display: grid; gap: .4rem; margin: 0; padding-left: 1.4rem; color: var(--muted); font-weight: 600; }
-.rules b { color: var(--ink); }
-.logbook { border: 1px solid var(--line); background: rgba(4, 6, 20, .85); }
-.logbook header {
-  display: flex; align-items: center; justify-content: space-between; padding: .6rem .9rem;
-  border-bottom: 1px solid var(--line); color: var(--acid); font-size: .7rem;
-  font-weight: 700; letter-spacing: .18em;
+@keyframes card-in { from { transform: translateY(10px) scale(.992); opacity: 0; } }
+.float__bar {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .6rem;
+  padding: .45rem .7rem; border-bottom: 1px solid var(--line);
 }
-.logbook button {
-  padding: .3rem .6rem; border: 1px solid var(--line); color: var(--muted); background: transparent;
-  font: inherit; font-size: .64rem; letter-spacing: .12em; cursor: pointer;
+.float__kicker { color: var(--violet); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; white-space: nowrap; }
+.float__title {
+  min-width: 0; font: 400 clamp(.85rem, 1.9vw, 1.45rem)/1 var(--display); color: #f7f2e2;
+  transform: scaleY(1.08); transform-origin: left center; text-shadow: 2px 2px 0 rgba(255, 53, 189, .5);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.logbook button:hover, .logbook button:focus-visible { color: var(--night); background: var(--acid); }
-#battle-log {
-  display: grid; gap: .4rem; margin: 0; padding: .8rem .9rem 1rem 2.2rem;
-  color: var(--muted); font-size: .84rem; font-weight: 600;
-  max-height: 26svh; overflow-y: auto;
+.float__close {
+  padding: .3rem .6rem; border: 1px solid var(--line); background: transparent; color: var(--acid);
+  font: inherit; font-size: .6rem; letter-spacing: .12em; cursor: pointer; white-space: nowrap;
 }
-#battle-log b { color: var(--ink); }
-#battle-log .idle { list-style: none; margin-left: -1.3rem; color: #6f6a8c; font-style: italic; }
-.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
-.gallery figure { margin: 0; border: 1px solid var(--line); background: rgba(4, 6, 20, .8); }
-.gallery .wide { grid-column: 1 / -1; }
-.gallery img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-.gallery .wide img { aspect-ratio: 16 / 7; }
-.gallery figcaption { padding: .7rem .9rem .9rem; color: var(--muted); font-size: .82rem; font-weight: 600; }
-.gallery figcaption b { display: block; margin-bottom: .2rem; color: var(--acid); font-size: .7rem; letter-spacing: .16em; }
-.gallery .slot { display: grid; grid-template-rows: auto 1fr; }
-.slot__plate {
-  display: grid; place-items: center; aspect-ratio: 16 / 10; color: #3a3760;
-  border-bottom: 1px dashed var(--line);
-  background: repeating-linear-gradient(135deg, transparent 0 12px, rgba(143, 82, 255, .07) 13px 14px);
+.float__close:hover, .float__close:focus-visible { color: var(--night); background: var(--acid); }
+.float__body { overflow-y: auto; overscroll-behavior: contain; padding: .9rem; display: grid; gap: .8rem; align-content: start; }
+.float__body img { width: 100%; max-height: 46svh; object-fit: contain; border: 1px solid var(--line); background: #04050f; }
+.float__body p { margin: 0; color: var(--muted); font-weight: 600; }
+.float__body p b { color: var(--ink); }
+.float__body .flag { color: var(--acid); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; }
+.float__body ol { margin: 0; padding-left: 1.3rem; display: grid; gap: .35rem; color: var(--muted); font-weight: 600; }
+.float__body ol b { color: var(--ink); }
+.float__body ol.log { list-style: none; padding: 0; }
+.float__body ol.log li { position: relative; padding-left: 1.3rem; }
+.float__body ol.log li::before { content: "▸"; position: absolute; left: 0; color: var(--violet); }
+.float__body ol.log b { color: var(--cyan); }
+.float__body ol.log .idle { color: #6f6a8c; font-style: italic; }
+.float__body ol.log .idle::before { content: ""; }
+.float__body .plate {
+  display: grid; place-items: center; aspect-ratio: 16 / 7; color: #3a3760;
+  border: 1px dashed var(--line);
+  background: repeating-linear-gradient(135deg, transparent 0 12px, rgba(143, 82, 255, .08) 13px 14px);
   font: 400 2rem/1 var(--display);
 }
-.foot {
-  display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; align-items: baseline; justify-content: space-between;
-  padding-top: 1rem; border-top: 1px solid var(--line);
-}
-.foot p { margin: 0; }
-.foot a { font-weight: 700; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; }
-.foot a:hover, .foot a:focus-visible { color: var(--night); background: var(--acid); }
-.coords { color: #6f6a8c; font-size: .76rem; }
+.float__foot { display: flex; justify-content: space-between; gap: .6rem; padding: .32rem .7rem; border-top: 1px solid var(--line); color: #6f6a8c; font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; }
 
 /* ---------------- narrow screens: the bezel would shrink the text to nothing,
-   so the console becomes a normal panel with real font sizes ---------------- */
+   so the console becomes a panel, and only the active fighter's moves are shown ---------------- */
 @media (max-width: 1000px) {
-  .console-frame { aspect-ratio: auto; overflow: visible; }
+  .console-frame { height: auto; overflow: visible; }
   .console-frame__art { display: none; }
   .console-inner {
-    position: static; inset: auto; padding: .9rem 1rem .8rem;
+    position: static; inset: auto; padding: .55rem .7rem .5rem;
     border: 1px solid rgba(143, 82, 255, .6); background: var(--panel);
     box-shadow: 0 0 0 1px rgba(32, 231, 255, .16) inset, 0 0 24px rgba(34, 9, 72, .8);
   }
-  .console-body { grid-template-columns: 1fr; gap: .6rem; }
-  .console-side { padding: 0 0 .5rem; border-right: 0; border-bottom: 1px solid var(--line); gap: .4rem; }
-  .kicker, .turn { font-size: .64rem; letter-spacing: .14em; }
-  #move-name { font-size: clamp(1.3rem, 6vw, 2rem); }
-  #readout { font-size: .82rem; }
-  .team header h3 { font-size: .95rem; }
-  .team button span { font-size: .84rem; }
-  .team button b { font-size: .64rem; }
-  .hud-card { width: min(100%, 24rem); }
-  .console-help { font-size: .6rem; }
+  .console-body { grid-template-columns: 1fr; gap: .4rem; }
+  .console-side { padding: 0 0 .35rem; border-right: 0; border-bottom: 1px solid var(--line); gap: .25rem; }
+  .kicker, .turn { font-size: .6rem; }
+  #move-name { font-size: clamp(1.1rem, 5.4vw, 1.7rem); }
+  #readout { font-size: .74rem; }
+  .team header h3 { font-size: .8rem; }
+  .team button span { font-size: .68rem; }
+  .team button b { font-size: .5rem; }
+  .card-button { font-size: .56rem; }
   .crt { display: none; }
+  .field-hint { display: none; }
+  /* a phone shows one fighter's moves at a time, so the cabinet still fits one screen */
+  .cabinet[data-active="signal"] .team--archive,
+  .cabinet[data-active="archive"] .team--signal { display: none; }
+  .console-lists { grid-template-columns: 1fr; }
 }
 @media (max-width: 700px) {
-  .cabinet { grid-template-rows: auto auto auto auto; min-height: 0; }
-  .battlefield { aspect-ratio: 16 / 10; }
-  .sprite { max-width: 56%; }
-  .clash { width: 26%; top: 40%; }
-  .hud { grid-template-columns: 1fr; justify-items: center; gap: .3rem; }
-  .hud-card { width: min(100%, 26rem); }
-  .hud-card--signal, .hud-card--archive { justify-self: center; }
-  .vs { width: 1.9rem; font-size: .7rem; }
-  .console-lists { grid-template-columns: 1fr; }
-  .back { position: static; display: inline-block; margin-bottom: .3rem; }
-  .gallery { grid-template-columns: 1fr; }
+  .hud { gap: .3rem; }
+  .hud-card { height: clamp(34px, 6svh, 54px); }
+  .vs { width: 1.5rem; font-size: .6rem; }
+  .sprite { max-width: 54%; }
+  .clash { width: 24%; top: 42%; }
+  .back { font-size: .54rem; }
+  .console-help { gap: .18rem .5rem; }
+  .ticker { flex-basis: 100%; }
+  .float__title { font-size: 1rem; }
+  .float__kicker { display: none; }
+}
+@media (max-height: 620px) {
+  .titlebar h1 { font-size: clamp(.95rem, 2.2vw, 1.5rem); }
+  .eyebrow { display: none; }
+  .console-frame { height: clamp(140px, 30svh, 200px); }
+  .card-button { display: none; }
+  .console-side { gap: .06rem; }
+  #readout { font-size: .58rem; line-height: 1.3; }
 }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .cabinet.is-hit, .cabinet.is-hit .flash, .team button.is-playing { animation: none; }
+  .cabinet.is-hit, .cabinet.is-hit .flash, .team button.is-playing, .float { animation: none; }
 }

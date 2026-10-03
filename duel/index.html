@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#02020a" />
   <title>THE DUEL — NOAH'S ROOM</title>
-  <meta name="description" content="The new log of Noah's Room: two halves of one desk meet in the violet hour and fight over what is worth keeping. A move list, not a link list." />
+  <meta name="description" content="The new log of Noah's Room: two halves of one desk meet in the violet hour and fight over what is worth keeping. One cabinet, sixteen moves, and setting cards that open only when you ask for them." />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,8 +14,9 @@
   <link rel="stylesheet" href="duel.css" />
 </head>
 <body class="duel">
-  <a class="skip" href="#moves">Skip to the move list</a>
+  <a class="skip" href="#console">Skip to the command menu</a>
 
+  <!-- one screen, one cabinet: the page itself never scrolls -->
   <main class="cabinet" data-active="signal" aria-label="The arena">
     <img class="arena-bg" src="../assets/duel/arena.webp" alt="" aria-hidden="true" />
     <div class="vignette" aria-hidden="true"></div>
@@ -23,37 +24,38 @@
     <div class="flash" aria-hidden="true"></div>
 
     <header class="titlebar">
+      <a class="back" href="../">← THE ROOM</a>
       <p class="eyebrow">NOAH'S ROOM · THE NEW LOG</p>
       <h1>THE DUEL</h1>
       <p class="tagline">ROUND ∞ · TWO HALVES, ONE DESK</p>
-      <a class="back" href="../">← THE ROOM</a>
     </header>
 
     <section class="hud" aria-label="Choose a fighter">
-      <button class="hud-card hud-card--signal is-active" type="button" data-team-select="signal" aria-pressed="true">
+      <button class="hud-card hud-card--signal is-active" type="button" data-team-select="signal" aria-pressed="true" title="Fight as Signal Hound">
         <img src="../assets/duel/command-frame.webp" alt="" aria-hidden="true" />
         <span class="hud-copy"><b>01 · SIGNAL HOUND</b><i></i><small>THE MAKING HALF</small></span>
       </button>
       <div class="vs" aria-hidden="true">VS</div>
-      <button class="hud-card hud-card--archive" type="button" data-team-select="archive" aria-pressed="false">
+      <button class="hud-card hud-card--archive" type="button" data-team-select="archive" aria-pressed="false" title="Fight as Archive Leviathan">
         <img src="../assets/duel/command-frame.webp" alt="" aria-hidden="true" />
         <span class="hud-copy"><b>02 · ARCHIVE LEVIATHAN</b><i></i><small>THE REMEMBERING HALF</small></span>
       </button>
     </section>
 
-    <section class="battlefield" aria-hidden="true">
-      <div class="sprite sprite--signal">
+    <section class="battlefield" aria-label="The arena floor">
+      <button class="sprite sprite--signal" type="button" data-open="fighter-signal" aria-label="Signal Hound — open its setting card">
         <img class="sprite__trail" src="../assets/duel/signal-trail.webp" alt="" />
-        <img class="sprite__body" src="../assets/duel/signal-hound.webp" alt="" />
-      </div>
-      <img class="clash" src="../assets/duel/clash.webp" alt="" />
-      <div class="sprite sprite--archive">
+        <img class="sprite__body" src="../assets/duel/signal-hound.webp" alt="Signal Hound, the making half" />
+      </button>
+      <img class="clash" src="../assets/duel/clash.webp" alt="" aria-hidden="true" />
+      <button class="sprite sprite--archive" type="button" data-open="fighter-archive" aria-label="Archive Leviathan — open its setting card">
         <img class="sprite__trail" src="../assets/duel/archive-trail.webp" alt="" />
-        <img class="sprite__body" src="../assets/duel/archive-leviathan.webp" alt="" />
-      </div>
+        <img class="sprite__body" src="../assets/duel/archive-leviathan.webp" alt="Archive Leviathan, the remembering half" />
+      </button>
+      <p class="field-hint">CLICK A FIGHTER FOR ITS CARD · EVERY CARD OPENS IN A FLOATING WINDOW</p>
     </section>
 
-    <section class="console" id="moves" aria-label="Command menu">
+    <section class="console" id="console" aria-label="Command menu">
       <div class="console-frame">
         <img class="console-frame__art" src="../assets/duel/command-frame.webp" alt="" aria-hidden="true" />
         <div class="console-inner">
@@ -64,34 +66,35 @@
               <p class="kicker" id="move-side">CIRCUIT 01 · THE MAKING HALF</p>
               <h2 id="move-name">CHOOSE A MOVE</h2>
               <output id="readout">↑↓ TO PICK A MOVE — ENTER TO PLAY IT. NOTHING HERE LEADS ANYWHERE.</output>
+              <button class="card-button" type="button" id="open-move" data-open="move">◉ OPEN THIS MOVE'S CARD</button>
             </div>
 
             <div class="console-lists">
               <div class="team team--signal">
                 <header><span>01</span><h3>SIGNAL HOUND</h3></header>
                 <ul data-list="signal">
-              <li><button type="button" data-team="signal" data-move="MOTION &amp; TYPE" data-log="The hound sets a line and lets it drift until it means something. Three kerning faults collapse without a sound."><b>01</b><span>MOTION &amp; TYPE<small>letters that had to learn to move</small></span></button></li>
-              <li><button type="button" data-team="signal" data-move="SIGNAL &amp; SOUND" data-log="It tunes the desk: cassette hiss, night radio, one keyboard at three in the morning. The arena hums back."><b>02</b><span>SIGNAL &amp; SOUND<small>tuning the room to itself</small></span></button></li>
-              <li><button type="button" data-team="signal" data-move="DRAWING MACHINES" data-log="Charcoal in a bitmap. It draws the room, then draws it again in the other light, and keeps both."><b>03</b><span>DRAWING MACHINES<small>charcoal, scanners, pixels</small></span></button></li>
-              <li><button type="button" data-team="signal" data-move="WEB CRAFT" data-log="Hand-written HTML and CSS, no build step, no dependencies. A page that will still open in ten years."><b>04</b><span>WEB CRAFT<small>folders that outlive frameworks</small></span></button></li>
-              <li><button type="button" data-team="signal" data-move="STORY MACHINES" data-log="Wrong choices kept on purpose. It builds the small playable things nobody asked for, then plays them wrong."><b>05</b><span>STORY MACHINES<small>small playable things</small></span></button></li>
-              <li><button type="button" data-team="signal" data-move="COLOUR &amp; LIGHT" data-log="Violet backlight, green terminal, one amber lamp. It argues in gradients."><b>06</b><span>COLOUR &amp; LIGHT<small>an argument in gradients</small></span></button></li>
-              <li><button type="button" data-team="signal" data-move="LONG PROJECTS" data-log="Engines, cities, whole imaginary seasons. It starts things that outlive the night."><b>07</b><span>LONG PROJECTS<small>things that outlive the night</small></span></button></li>
-              <li><button type="button" data-team="signal" data-move="HAND &amp; TOOL" data-log="Affinity, Krita, Blender, and a scanner older than the desk. Whatever is within reach becomes an instrument."><b>08</b><span>HAND &amp; TOOL<small>whatever is within reach</small></span></button></li>
+              <li><button type="button" data-team="signal" data-move="MOTION &amp; TYPE" data-art="../assets/duel/signal-hound.webp" data-log="The hound sets a line and lets it drift until it means something. Three kerning faults collapse without a sound." data-note="Letters that had to learn to move"><b>01</b><span>MOTION &amp; TYPE<small>letters that had to learn to move</small></span></button></li>
+              <li><button type="button" data-team="signal" data-move="SIGNAL &amp; SOUND" data-art="../assets/duel/signal-trail.webp" data-log="It tunes the desk: cassette hiss, night radio, one keyboard at three in the morning. The arena hums back." data-note="Tuning the room to itself"><b>02</b><span>SIGNAL &amp; SOUND<small>tuning the room to itself</small></span></button></li>
+              <li><button type="button" data-team="signal" data-move="DRAWING MACHINES" data-art="../assets/duel/signal-hound.webp" data-log="Charcoal in a bitmap. It draws the room, then draws it again in the other light, and keeps both." data-note="Charcoal, scanners, pixels"><b>03</b><span>DRAWING MACHINES<small>charcoal, scanners, pixels</small></span></button></li>
+              <li><button type="button" data-team="signal" data-move="WEB CRAFT" data-art="../assets/duel/command-frame.webp" data-log="Hand-written HTML and CSS, no build step, no dependencies. A page that will still open in ten years." data-note="Folders that outlive frameworks"><b>04</b><span>WEB CRAFT<small>folders that outlive frameworks</small></span></button></li>
+              <li><button type="button" data-team="signal" data-move="STORY MACHINES" data-art="../assets/duel/signal-trail.webp" data-log="Wrong choices kept on purpose. It builds the small playable things nobody asked for, then plays them wrong." data-note="Small playable things"><b>05</b><span>STORY MACHINES<small>small playable things</small></span></button></li>
+              <li><button type="button" data-team="signal" data-move="COLOUR &amp; LIGHT" data-art="../assets/duel/arena.webp" data-log="Violet backlight, green terminal, one amber lamp. It argues in gradients." data-note="An argument in gradients"><b>06</b><span>COLOUR &amp; LIGHT<small>an argument in gradients</small></span></button></li>
+              <li><button type="button" data-team="signal" data-move="LONG PROJECTS" data-art="../assets/duel/monster-duel-bg.webp" data-log="Engines, cities, whole imaginary seasons. It starts things that outlive the night." data-note="Things that outlive the night"><b>07</b><span>LONG PROJECTS<small>things that outlive the night</small></span></button></li>
+              <li><button type="button" data-team="signal" data-move="HAND &amp; TOOL" data-art="../assets/duel/command-frame.webp" data-log="Affinity, Krita, Blender, and a scanner older than the desk. Whatever is within reach becomes an instrument." data-note="Whatever is within reach"><b>08</b><span>HAND &amp; TOOL<small>whatever is within reach</small></span></button></li>
             </ul>
           </div>
 
-          <div class="team team--archive">
-            <header><span>02</span><h3>ARCHIVE LEVIATHAN</h3></header>
-            <ul data-list="archive">
-              <li><button type="button" data-team="archive" data-move="FIELD NOTES" data-log="It keeps every scrap: screenshots, receipts, one sentence heard on a bus in another city."><b>01</b><span>FIELD NOTES<small>every scrap, kept</small></span></button></li>
-              <li><button type="button" data-team="archive" data-move="DATA WRANGLING" data-log="It reads what the world actually said — messy, contradictory, filed under the wrong name."><b>02</b><span>DATA WRANGLING<small>the world, unfiltered</small></span></button></li>
-              <li><button type="button" data-team="archive" data-move="MODEL TRAINING" data-log="It teaches small machines to notice what people miss, then checks, patiently, what they actually learned."><b>03</b><span>MODEL TRAINING<small>teaching small machines</small></span></button></li>
-              <li><button type="button" data-team="archive" data-move="EVALUATION" data-log="Its favourite move: proving that a beautiful number was a lie. The hound hates this one."><b>04</b><span>EVALUATION<small>proving the number lied</small></span></button></li>
-              <li><button type="button" data-team="archive" data-move="WRITING &amp; CITATION" data-log="It will not let a claim stand without its source. This is where most of the fights start."><b>05</b><span>WRITING &amp; CITATION<small>the source, or nothing</small></span></button></li>
-              <li><button type="button" data-team="archive" data-move="BENCH &amp; TOOLBOX" data-log="Reproducible, or it did not happen. It keeps the environment, the seed and the version number."><b>06</b><span>BENCH &amp; TOOLBOX<small>reproducible or it did not happen</small></span></button></li>
-              <li><button type="button" data-team="archive" data-move="LONG MEMORY" data-log="Names, dates, the shape of an argument three months old, and who lost it."><b>07</b><span>LONG MEMORY<small>the shape of old arguments</small></span></button></li>
-              <li><button type="button" data-team="archive" data-move="THE RED PEN" data-log="It reads twice and cuts once. What survives the red pen was probably worth keeping."><b>08</b><span>THE RED PEN<small>reads twice, cuts once</small></span></button></li>
+              <div class="team team--archive">
+                <header><span>02</span><h3>ARCHIVE LEVIATHAN</h3></header>
+                <ul data-list="archive">
+              <li><button type="button" data-team="archive" data-move="FIELD NOTES" data-art="../assets/duel/archive-leviathan.webp" data-log="It keeps every scrap: screenshots, receipts, one sentence heard on a bus in another city." data-note="Every scrap, kept"><b>01</b><span>FIELD NOTES<small>every scrap, kept</small></span></button></li>
+              <li><button type="button" data-team="archive" data-move="DATA WRANGLING" data-art="../assets/duel/archive-trail.webp" data-log="It reads what the world actually said — messy, contradictory, filed under the wrong name." data-note="The world, unfiltered"><b>02</b><span>DATA WRANGLING<small>the world, unfiltered</small></span></button></li>
+              <li><button type="button" data-team="archive" data-move="MODEL TRAINING" data-art="../assets/duel/archive-leviathan.webp" data-log="It teaches small machines to notice what people miss, then checks, patiently, what they actually learned." data-note="Teaching small machines"><b>03</b><span>MODEL TRAINING<small>teaching small machines</small></span></button></li>
+              <li><button type="button" data-team="archive" data-move="EVALUATION" data-art="../assets/duel/clash.webp" data-log="Its favourite move: proving that a beautiful number was a lie. The hound hates this one." data-note="Proving the number lied"><b>04</b><span>EVALUATION<small>proving the number lied</small></span></button></li>
+              <li><button type="button" data-team="archive" data-move="WRITING &amp; CITATION" data-art="../assets/duel/command-frame.webp" data-log="It will not let a claim stand without its source. This is where most of the fights start." data-note="The source, or nothing"><b>05</b><span>WRITING &amp; CITATION<small>the source, or nothing</small></span></button></li>
+              <li><button type="button" data-team="archive" data-move="BENCH &amp; TOOLBOX" data-art="../assets/duel/archive-trail.webp" data-log="Reproducible, or it did not happen. It keeps the environment, the seed and the version number." data-note="Reproducible or it did not happen"><b>06</b><span>BENCH &amp; TOOLBOX<small>reproducible or it did not happen</small></span></button></li>
+              <li><button type="button" data-team="archive" data-move="LONG MEMORY" data-art="../assets/duel/archive-leviathan.webp" data-log="Names, dates, the shape of an argument three months old, and who lost it." data-note="The shape of old arguments"><b>07</b><span>LONG MEMORY<small>the shape of old arguments</small></span></button></li>
+              <li><button type="button" data-team="archive" data-move="THE RED PEN" data-art="../assets/duel/impact-streaks.webp" data-log="It reads twice and cuts once. What survives the red pen was probably worth keeping." data-note="Reads twice, cuts once"><b>08</b><span>THE RED PEN<small>reads twice, cuts once</small></span></button></li>
             </ul>
           </div>
             </div>
@@ -100,74 +103,38 @@
       </div>
 
       <footer class="console-help">
-        <span>↑↓ SELECT</span><span>←→ SWITCH FIGHTER</span><span>ENTER PLAY</span>
-        <a href="#story">▼ THE STORY &amp; THE LOG</a>
+        <span class="keys">↑↓ SELECT · ←→ SWITCH FIGHTER · ENTER PLAY · ESC CLOSE</span>
+        <span class="ticker" id="ticker" aria-live="polite">THE LAMP IS ON. NEITHER HALF HAS MOVED YET.</span>
+        <div class="help-actions">
+          <button type="button" data-open="story">THE STORY</button>
+          <button type="button" data-open="rules">HOUSE RULES</button>
+          <button type="button" data-open="log">BATTLE LOG</button>
+          <button type="button" data-open="field">THE FIELD</button>
+          <button type="button" data-open="clash">THE CLASH</button>
+          <button type="button" data-open="door">THE DOOR</button>
+          <button type="button" data-open="residue">RESIDUE</button>
+          <button type="button" data-open="knock">THE ELEVENTH KNOCK</button>
+        </div>
       </footer>
     </section>
   </main>
 
-  <section class="story" id="story" aria-label="The world behind the duel">
-    <h2>WHAT THEY ACTUALLY FIGHT ABOUT</h2>
-    <div class="story__text">
-      <p>One desk, two tenants. The hound makes things; the leviathan remembers them. When the lamp is switched off they meet on the same violet floor and take opposite sides of one question: <b>what is worth keeping?</b></p>
-      <p>The hound answers with a new draft — something that did not exist an hour ago. The leviathan answers with the version of it that already happened, footnoted. Neither of them wins. Both of them get sharper.</p>
-      <p>Three creatures watch from the shelf above the desk and keep score in a language that is mostly tail. The moon above the window is a door; what is behind the door is what the two halves are <em>really</em> arguing about, and neither of them will say it out loud.</p>
-      <p class="note">Nothing on this page is a link. Doors belong to the room; the arena only keeps consequences.</p>
+  <!-- floating windows: the setting art and the long text live here -->
+  <div class="floats" id="floats" hidden>
+    <div class="floats__backdrop" data-close></div>
+    <div class="float" role="dialog" aria-modal="true" aria-labelledby="float-title">
+      <header class="float__bar">
+        <span class="float__kicker" id="float-kicker">SETTING CARD</span>
+        <span class="float__title" id="float-title">—</span>
+        <button class="float__close" type="button" data-close aria-label="Close this card">✕ CLOSE</button>
+      </header>
+      <div class="float__body" id="float-body"></div>
+      <footer class="float__foot">
+        <span>ESC OR CLICK OUTSIDE TO CLOSE</span>
+        <span class="float__count" id="float-count"></span>
+      </footer>
     </div>
-
-    <div class="rules">
-      <h3>HOUSE RULES</h3>
-      <ol>
-        <li>A move has to be <b>finished</b> before the other half may answer.</li>
-        <li>The half that speaks first loses the point — unless the other is still loading.</li>
-        <li>Nothing is deleted. It is only moved somewhere darker.</li>
-        <li>The duel never ends; it is <b>paused</b> when the lamp goes off.</li>
-      </ol>
-    </div>
-
-    <div class="logbook">
-      <header>BATTLE LOG <button type="button" id="clear-log">CLEAR</button></header>
-      <ol id="battle-log" aria-live="polite">
-        <li class="idle">The lamp is on. Neither half has moved yet.</li>
-      </ol>
-    </div>
-
-    <div class="gallery">
-      <figure class="wide">
-        <img src="../assets/duel/arena.webp" alt="The arena before either half has moved" loading="lazy" />
-        <figcaption><b>THE FIELD</b> — before either half moves. The floor is lit; nobody is standing on it yet.</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/duel/signal-hound.webp" alt="Signal Hound" loading="lazy" />
-        <figcaption><b>01 · SIGNAL HOUND</b> — the making half, trailing light.</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/duel/archive-leviathan.webp" alt="Archive Leviathan" loading="lazy" />
-        <figcaption><b>02 · ARCHIVE LEVIATHAN</b> — the remembering half, dragging its drawers.</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/duel/clash.webp" alt="The clash" loading="lazy" />
-        <figcaption><b>THE CLASH</b> — both halves choosing, at the same instant, the same move.</figcaption>
-      </figure>
-      <figure class="wide">
-        <img src="../assets/monster-duel-bg.webp" alt="What the door opens onto" loading="lazy" />
-        <figcaption><b>WHAT THE DOOR OPENS ONTO</b> — the thing both halves are actually fighting, and neither will name.</figcaption>
-      </figure>
-      <figure class="wide">
-        <img src="../assets/impact-streaks.webp" alt="Streaks of light after a round" loading="lazy" />
-        <figcaption><b>RESIDUE</b> — what is left on the desk after a round: streaks, scorch marks, no answers.</figcaption>
-      </figure>
-      <figure class="slot">
-        <div class="slot__plate" aria-hidden="true">?</div>
-        <figcaption><b>THE ELEVENTH KNOCK</b> — plate missing. Something was here and left.</figcaption>
-      </figure>
-    </div>
-
-    <footer class="foot">
-      <p><a href="../">← BACK TO THE ROOM</a></p>
-      <p class="coords">90°00'01"N 000°00'01"E · the desk is usually occupied after midnight</p>
-    </footer>
-  </section>
+  </div>
 
   <script src="duel.js"></script>
 </body>
