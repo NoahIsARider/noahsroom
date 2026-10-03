@@ -4,7 +4,13 @@
 
 NoahIsARider（Noah）的个人主页。**一个房间，两层**。
 
-线上：<https://noahisarider.codeberg.page/>（Codeberg Pages）。GitHub 上的 `noahsroom` 是早期镜像，**已于 2026-10-03 删除**；feed 里房间自己的地址一律用 Codeberg，不要再写回 github.io。
+**这个项目叫 NOAHSARK**（方舟式的统合项目）：房间是它的门面，`duel/`、`logs.html`、`blazingstar/` 都在同一条船上。标签页标题就是 `NOAHSARK`。
+
+线上两份，**内容必须一致，改完一起推**：
+- 主：<https://noahisarider.codeberg.page/> — Codeberg 仓库 `NoahIsARider/pages`（分支 `pages`），推送即发布，无需 CI。
+- 镜像：<https://noahisarider.github.io/noahsark-room/> — GitHub 仓库 `NoahIsARider/noahsark-room`（分支 `main`），由 `.github/workflows/pages.yml` 走 Actions 发布。
+
+（`noahsark` 这个名字被私有备份仓库 `NoahsArk` 占了，GitHub 不区分大小写，所以站点仓库叫 `noahsark-room`。早期镜像 `noahsroom` 已于 2026-10-03 删除。）
 
 - `/`（`index.html`）— Y2K/霓虹夜桌：全屏 16:9 场景，由独立图层和抠图素材拼成，每个物件是一个"门"，中控是那台 CRT。
 - `/relic/`（`relic/index.html`）— 上一版的"三个灯光的房间"（写实 / 黄昏 / 梵高油画三张照片 + 手写批注 + Rough.js 手绘相框），整份归档保留，只能通过隐藏入口进入。**该页自身品牌与 `<title>` 都叫 relic**（原来是 noahsroom），目录和 URL 也已是 `relic/`；旧的 `/room/` 保留一个跳转壳（meta refresh + JS 替换），不会 404。
@@ -43,7 +49,9 @@ NoahIsARider（Noah）的个人主页。**一个房间，两层**。
 └── .gitignore          # 忽略设计迭代图、.playwright-mcp/、skills/、PNG 母版
 ```
 
-## 隐藏入口（月亮暗门）
+## 隐藏入口（两个：月亮，和那行坐标）
+
+### 一、月亮：进 relic
 
 - `index.html` 里的 `<button class="moon-door">` 是覆盖在月亮上的透明热区（`left:22.6%; top:-1.6%; width:7.8%; height:11%`）。
 - 月亮本体在 `layered.css` 的 v17 段：`.moon{left:24%; top:0; width:5%}`。**两者必须同步改**，否则点不中。
@@ -51,6 +59,14 @@ NoahIsARider（Noah）的个人主页。**一个房间，两层**。
 - **第 10 次点击不跳转**：它把那个 `<button>` 就地换成真链接 `<a class="moon-door moon-door--awake" href="relic/">`，光标变 pointer，悬停时在月亮**下方**显示 `THE RELIC →`（标签必须挂 `top:100%`，挂上方会被 `.desk` 的 overflow 裁掉）。第 11 次点击才真的进 `relic/`。**改目录名时这两个地方要同步：`layered.js` 的 `link.href`、`.gitignore` 里的母版 PNG 路径。**`logs.html`（the tale）里**不再有**任何指向 `relic/` 的链接——月亮暗门是它唯一的入口，导航或正文里写出来就算画蛇添足（2026-10-03 已删）。
 - **绝对不要在 JS 里用定时器自动跳转**：那样返回时 bfcache 一恢复，未触发的定时器会再补跳一次，页面自己往前跳。让链接只由人点。
 - 刷新后月亮回到沉睡状态（不写 localStorage）。
+
+### 二、坐标：没有去处，只有雪花
+
+- `index.html` 里的 `90°00'01"N 000°00'01"E` 是一个 `<button class="counter">`（`cursor:default`，不提示可点）。
+- 节奏和月亮一样：`layered.js` 末尾 `NEEDED=10`、每两次间隔 < 2.4s，超时清零；每次点击把 `--tuned`（0–10）写到按钮上，绿字随之变亮。
+- **第 10 次点击不触发故障**：它给按钮加 `counter--awake`（鼠标变 pointer，下方浮出 `CHANGE THE CHANNEL →`）。**第 11 次**才让整个画面丢掉信号：`<div class="static">` 铺满全屏，canvas 以 ~18fps 重绘噪点，`::after` 叠加扫描线与横向撕裂，`#desk` 同时播 `signal-drop`，1.56s 后淡出并移除 —— 然后恢复。
+- **亮场类必须同步加**：`layer.classList.add("is-on")` 不能包在 `requestAnimationFrame` 里（后台标签页 rAF 不触发，雪花会永远停在 opacity 0）。
+- `prefers-reduced-motion` 下不放雪花，只保留一次短促的画面抖动。
 
 ## 链接约定
 
@@ -82,6 +98,8 @@ NoahIsARider（Noah）的个人主页。**一个房间，两层**。
 
 ## 变更记录
 
+- 2026-10-03（五）：项目定名 **NOAHSARK**（标签页、the tale 的 kicker、duel 的 eyebrow 全改）；GitHub 侧重建为 `noahsark-room` 并由 GitHub Actions 发布，两边一起更新；`feed.xml` 重新生成（标题改 NOAHSARK，加回 GitHub 镜像条目）。
+- 2026-10-03（四）：坐标做成第二个隐藏入口——十次点击后变成按钮，再按整页丢掉信号（canvas 噪点 + 扫描线 + `signal-drop`），1.56s 后恢复。
 - 2026-10-03（三）：GitHub 上的 `noahsroom` 镜像**删除**（`gh repo delete`，需要 `delete_repo` scope）；`tools/build-feed.py` 的 `SITE` 改指 Codeberg、去掉镜像条目，feed 重新生成后 github.io/noahsroom 残留 0 处。
 - 2026-10-03（二）：duel 重做成**一屏一台机器**——`html/body` 锁 1 屏高、页面永不滚动；HUD 牌匾从 544×181 缩到 ~243×81（角色名 + 细血条），格斗位因此从 245px 高变成 464px；原先堆在页脚的设定文字与画廊全部搬进**浮窗**（底栏 8 个按钮 + 每角色/每招式的卡），`ESC`／点窗外／`✕ CLOSE` 关闭。
 - 2026-10-03：`logs.html` 里指向 `relic/` 的导航链接删除（月亮暗门成为唯一入口）。

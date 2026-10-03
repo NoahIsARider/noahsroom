@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Noah's Room — index</title>
+    <title>NOAHSARK — index</title>
     <link>https://noahisarider.codeberg.page/</link>
     <atom:link href="https://noahisarider.codeberg.page/feed.xml" rel="self" type="application/rss+xml" />
     <description>Everything of Noah (NoahIsARider) in one file, so that readers and crawlers can find all of it: every page, every account, and the complete list of public repositories.</description>
     <language>en</language>
     <copyright>Noah (NoahIsARider)</copyright>
-    <lastBuildDate>Sat, 03 Oct 2026 22:57:47 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 23:07:16 +0800</lastBuildDate>
     <generator>tools/build-feed.py</generator>
     <ttl>720</ttl>
     <item>
@@ -51,7 +51,7 @@
       <description>Oblivion is freedom and no one lasts forever.</description>
     </item>
     <item>
-      <title>Noah's Room — the night desk</title>
+      <title>NOAHSARK — the night desk</title>
       <link>https://noahisarider.codeberg.page/</link>
       <guid isPermaLink="true">https://noahisarider.codeberg.page/</guid>
       <category>page</category>
@@ -59,7 +59,7 @@
       <description>A hand-assembled room on the personal web; every object is a door to a different corner.</description>
     </item>
     <item>
-      <title>Noah's Room — the tale: the three odd friends</title>
+      <title>NOAHSARK — the tale: the three odd friends</title>
       <link>https://noahisarider.codeberg.page/logs.html</link>
       <guid isPermaLink="true">https://noahisarider.codeberg.page/logs.html</guid>
       <category>page</category>
@@ -67,12 +67,20 @@
       <description>The room's own dark fairy tale: the three odd friends on the shelf above the desk, what they do with the night, and why the moon is a door.</description>
     </item>
     <item>
-      <title>Noah's Room — the duel: the new log</title>
+      <title>NOAHSARK — the duel: the new log</title>
       <link>https://noahisarider.codeberg.page/duel/</link>
       <guid isPermaLink="true">https://noahisarider.codeberg.page/duel/</guid>
       <category>page</category>
       <category>account</category>
       <description>The new log of the room: two halves of one desk — the making half and the remembering half — meet in the violet hour and fight over what is worth keeping. Nothing there is a link.</description>
+    </item>
+    <item>
+      <title>NOAHSARK — the same desk, mirrored on GitHub</title>
+      <link>https://noahisarider.github.io/noahsark-room/</link>
+      <guid isPermaLink="true">https://noahisarider.github.io/noahsark-room/</guid>
+      <category>page</category>
+      <category>account</category>
+      <description>The GitHub copy of the same room, deployed by GitHub Actions. Both copies are updated together.</description>
     </item>
     <item>
       <title>Google Scholar</title>

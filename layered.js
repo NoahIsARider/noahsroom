@@ -33,3 +33,68 @@ const clock=document.querySelector("#clock");const tick=()=>clock.textContent=ne
    again the moment you come back. */
 (()=>{const desk=document.querySelector("#desk");const door=document.querySelector(".moon-door");if(!door||!desk)return;const NEEDED=10;let hits=0,timer=null,awake=false;const light=n=>desk.style.setProperty("--moonlit",String(n));const reset=()=>{if(awake)return;hits=0;light(0)};const awaken=()=>{awake=true;clearTimeout(timer);light(NEEDED);const link=document.createElement("a");link.className="moon-door moon-door--awake";link.href="relic/";link.setAttribute("aria-label","Step through the moon into the relic, the room with three lights");link.innerHTML="<span>THE RELIC →</span>";door.replaceWith(link)};door.addEventListener("click",()=>{if(awake)return;hits+=1;light(hits);clearTimeout(timer);if(hits>=NEEDED){awaken();return}timer=setTimeout(reset,2400)});door.addEventListener("blur",reset)})();
 if(innerWidth<=700)requestAnimationFrame(()=>scrollTo({left:(1067-innerWidth)/2,top:0,behavior:"instant"}));
+
+/* the coordinates are a door too, but it leads nowhere: ten knocks tune the set, and the
+   next press loses the signal for a second and a half and then gives the picture back.
+   Same rhythm as the moon — a couple of seconds between knocks, otherwise the count resets. */
+(()=>{
+  const desk=document.querySelector("#desk");
+  const coords=document.querySelector(".counter");
+  if(!coords||!desk)return;
+  const NEEDED=10,reduced=matchMedia("(prefers-reduced-motion: reduce)");
+  let hits=0,timer=null,awake=false,busy=false;
+  const tune=n=>coords.style.setProperty("--tuned",String(n));
+  const reset=()=>{if(awake)return;hits=0;tune(0)};
+  const wake=()=>{awake=true;clearTimeout(timer);tune(NEEDED);coords.classList.add("counter--awake");coords.setAttribute("aria-label","Change the channel")};
+
+  const noise=()=>{
+    const layer=document.createElement("div");
+    layer.className="static";
+    const canvas=document.createElement("canvas");
+    const W=176,H=99;
+    canvas.width=W;canvas.height=H;
+    layer.append(canvas);
+    document.body.append(layer);
+    // added synchronously: a background tab throttles requestAnimationFrame, and the
+    // snow would then never fade in (the layer would sit there at opacity 0)
+    layer.classList.add("is-on");
+    const ctx=canvas.getContext("2d");
+    const frame=ctx.createImageData(W,H);
+    const buf=frame.data;
+    const draw=()=>{
+      for(let i=0;i<buf.length;i+=4){const v=Math.random()*256;buf[i]=buf[i+1]=buf[i+2]=v>248?255:v;buf[i+3]=255}
+      for(let k=0;k<3;k++){
+        if(Math.random()<.34){const y=(Math.random()*H)|0,h=1+((Math.random()*3)|0);
+          for(let yy=y;yy<Math.min(H,y+h);yy++)for(let x=0;x<W;x++){const i=(yy*W+x)*4,v=Math.random()<.5?0:255;buf[i]=buf[i+1]=buf[i+2]=v}}
+        if(Math.random()<.16){const y=(Math.random()*H)|0;
+          for(let x=0;x<W;x++){const i=(y*W+x)*4;buf[i]=40+Math.random()*90;buf[i+1]=Math.random()*70;buf[i+2]=170+Math.random()*85}}
+      }
+      ctx.putImageData(frame,0,0);
+    };
+    draw();
+    const roll=setInterval(draw,52);
+    setTimeout(()=>{
+      clearInterval(roll);
+      layer.classList.remove("is-on");
+      setTimeout(()=>layer.remove(),260);
+    },1560);
+  };
+
+  const loseSignal=()=>{
+    if(busy)return;
+    busy=true;
+    desk.classList.remove("is-static-hit");void desk.offsetWidth;desk.classList.add("is-static-hit");
+    desk.addEventListener("animationend",()=>desk.classList.remove("is-static-hit"),{once:true});
+    if(!reduced.matches)noise();
+    setTimeout(()=>{busy=false},reduced.matches?260:1900);
+  };
+
+  coords.addEventListener("click",()=>{
+    if(awake){loseSignal();return}
+    hits+=1;tune(hits);clearTimeout(timer);
+    if(hits>=NEEDED){wake();return}
+    timer=setTimeout(reset,2400);
+  });
+  coords.addEventListener("blur",reset);
+  coords.addEventListener("keydown",event=>{if(awake&&(event.key==="Enter"||event.key===" ")){event.preventDefault();loseSignal()}});
+})();
