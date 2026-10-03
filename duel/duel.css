@@ -169,13 +169,16 @@ a { color: var(--acid); }
 /* ---------------- console: same frame art, but short ---------------- */
 .console { position: relative; z-index: 4; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: .25rem; }
 .console-frame {
-  position: relative; height: clamp(162px, 26svh, 258px); overflow: hidden;
-  container-type: inline-size;
+  position: relative; width: 100%; height: clamp(186px, 31svh, 330px);
+  overflow: hidden; container-type: inline-size;
+  /* The bezel art is cut to "top edge + the whole writing window". A plain height plus
+     object-fit: fill means the frame is never cropped — a shorter box only squashes it
+     vertically — so the top of the frame always shows. */
 }
-.console-frame__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.console-frame__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
 .console-inner {
-  position: absolute; inset: 11.5% 19.5% 11.5% 28.5%;
-  display: grid; grid-template-rows: auto minmax(0, 1fr); gap: .25rem; min-height: 0;
+  position: absolute; inset: 50% 9.5% 5.5% 23%;
+  display: grid; grid-template-rows: auto minmax(0, 1fr); gap: .22rem; min-height: 0;
 }
 .turn { margin: 0; color: var(--acid); font-size: clamp(.4rem, .74cqw, .64rem); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .turn span { color: var(--cyan); }
@@ -185,10 +188,13 @@ a { color: var(--acid); }
 .kicker { margin: 0; color: var(--cyan); font-size: clamp(.4rem, .78cqw, .64rem); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 #move-name {
   display: block; margin: 0; transform: scaleY(1.08); transform-origin: left center;
-  font: 400 clamp(.78rem, 2.4cqw, 1.7rem)/.95 var(--display);
+  font: 400 clamp(.72rem, 2.05cqw, 1.42rem)/.95 var(--display);
   letter-spacing: .01em; color: #f7f2e2; text-shadow: 2px 2px 0 rgba(255, 53, 189, .55);
 }
-#readout { display: block; color: var(--muted); font-size: clamp(.44rem, .84cqw, .68rem); font-weight: 600; line-height: 1.35; }
+#readout {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  color: var(--muted); font-size: clamp(.42rem, .74cqw, .6rem); font-weight: 600; line-height: 1.3;
+}
 .card-button {
   justify-self: start; margin-top: .1rem; padding: .16rem .42rem;
   border: 1px solid rgba(200, 255, 54, .5); background: rgba(6, 8, 24, .92);
@@ -338,10 +344,15 @@ a { color: var(--acid); }
 @media (max-height: 620px) {
   .titlebar h1 { font-size: clamp(.95rem, 2.2vw, 1.5rem); }
   .eyebrow { display: none; }
-  .console-frame { height: clamp(140px, 30svh, 200px); }
+  .console-frame { height: clamp(150px, 30svh, 210px); }
+  .team button { padding: 0 .18rem; }
+  .team button b { display: none; }
+  .team button span { font-size: .56rem; line-height: 1; }
+  .team header { padding-bottom: 0; }
+  .console-inner { gap: .1rem; }
   .card-button { display: none; }
   .console-side { gap: .06rem; }
-  #readout { font-size: .58rem; line-height: 1.3; }
+  .console-side #readout { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cabinet.is-hit, .cabinet.is-hit .flash, .team button.is-playing, .float { animation: none; }

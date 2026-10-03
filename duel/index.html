@@ -57,7 +57,7 @@
 
     <section class="console" id="console" aria-label="Command menu">
       <div class="console-frame">
-        <img class="console-frame__art" src="../assets/duel/command-frame.webp" alt="" aria-hidden="true" />
+        <img class="console-frame__art" src="../assets/duel/command-frame-band.webp" alt="" aria-hidden="true" />
         <div class="console-inner">
           <p class="turn">COMMAND PHASE · NOW MOVING — <span id="turn-side">PLAYER 01 · SIGNAL HOUND</span></p>
 
@@ -66,7 +66,6 @@
               <p class="kicker" id="move-side">CIRCUIT 01 · THE MAKING HALF</p>
               <h2 id="move-name">CHOOSE A MOVE</h2>
               <output id="readout">↑↓ TO PICK A MOVE — ENTER TO PLAY IT. NOTHING HERE LEADS ANYWHERE.</output>
-              <button class="card-button" type="button" id="open-move" data-open="move">◉ OPEN THIS MOVE'S CARD</button>
             </div>
 
             <div class="console-lists">
@@ -106,6 +105,7 @@
         <span class="keys">↑↓ SELECT · ←→ SWITCH FIGHTER · ENTER PLAY · ESC CLOSE</span>
         <span class="ticker" id="ticker" aria-live="polite">THE LAMP IS ON. NEITHER HALF HAS MOVED YET.</span>
         <div class="help-actions">
+          <button type="button" id="open-move" data-open="move">THIS MOVE'S CARD</button>
           <button type="button" data-open="story">THE STORY</button>
           <button type="button" data-open="rules">HOUSE RULES</button>
           <button type="button" data-open="log">BATTLE LOG</button>
