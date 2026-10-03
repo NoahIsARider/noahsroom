@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Black+Ops+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="duel.css" />
 </head>
 <body class="duel">
@@ -54,23 +54,22 @@
     </section>
 
     <section class="console" id="moves" aria-label="Command menu">
-      <div class="marquee">
-        <img src="../assets/duel/command-frame.webp" alt="" aria-hidden="true" />
-        <h2>COMMAND PHASE</h2>
-        <p class="turn">NOW MOVING · <span id="turn-side">PLAYER 01 · SIGNAL HOUND</span></p>
-      </div>
+      <div class="console-frame">
+        <img class="console-frame__art" src="../assets/duel/command-frame.webp" alt="" aria-hidden="true" />
+        <div class="console-inner">
+          <p class="turn">COMMAND PHASE · NOW MOVING — <span id="turn-side">PLAYER 01 · SIGNAL HOUND</span></p>
 
-      <div class="panel">
-        <div class="panel__side">
-          <p class="kicker" id="move-side">CIRCUIT 01 · THE MAKING HALF</p>
-          <h3 id="move-name">CHOOSE A MOVE</h3>
-          <output id="readout">↑↓ TO PICK A MOVE — ENTER TO PLAY IT. NOTHING HERE LEADS ANYWHERE.</output>
-        </div>
+          <div class="console-body">
+            <div class="console-side">
+              <p class="kicker" id="move-side">CIRCUIT 01 · THE MAKING HALF</p>
+              <h2 id="move-name">CHOOSE A MOVE</h2>
+              <output id="readout">↑↓ TO PICK A MOVE — ENTER TO PLAY IT. NOTHING HERE LEADS ANYWHERE.</output>
+            </div>
 
-        <div class="panel__lists">
-          <div class="team team--signal">
-            <header><span>01</span><h4>SIGNAL HOUND</h4></header>
-            <ul data-list="signal">
+            <div class="console-lists">
+              <div class="team team--signal">
+                <header><span>01</span><h3>SIGNAL HOUND</h3></header>
+                <ul data-list="signal">
               <li><button type="button" data-team="signal" data-move="MOTION &amp; TYPE" data-log="The hound sets a line and lets it drift until it means something. Three kerning faults collapse without a sound."><b>01</b><span>MOTION &amp; TYPE<small>letters that had to learn to move</small></span></button></li>
               <li><button type="button" data-team="signal" data-move="SIGNAL &amp; SOUND" data-log="It tunes the desk: cassette hiss, night radio, one keyboard at three in the morning. The arena hums back."><b>02</b><span>SIGNAL &amp; SOUND<small>tuning the room to itself</small></span></button></li>
               <li><button type="button" data-team="signal" data-move="DRAWING MACHINES" data-log="Charcoal in a bitmap. It draws the room, then draws it again in the other light, and keeps both."><b>03</b><span>DRAWING MACHINES<small>charcoal, scanners, pixels</small></span></button></li>
@@ -83,7 +82,7 @@
           </div>
 
           <div class="team team--archive">
-            <header><span>02</span><h4>ARCHIVE LEVIATHAN</h4></header>
+            <header><span>02</span><h3>ARCHIVE LEVIATHAN</h3></header>
             <ul data-list="archive">
               <li><button type="button" data-team="archive" data-move="FIELD NOTES" data-log="It keeps every scrap: screenshots, receipts, one sentence heard on a bus in another city."><b>01</b><span>FIELD NOTES<small>every scrap, kept</small></span></button></li>
               <li><button type="button" data-team="archive" data-move="DATA WRANGLING" data-log="It reads what the world actually said — messy, contradictory, filed under the wrong name."><b>02</b><span>DATA WRANGLING<small>the world, unfiltered</small></span></button></li>
@@ -95,13 +94,15 @@
               <li><button type="button" data-team="archive" data-move="THE RED PEN" data-log="It reads twice and cuts once. What survives the red pen was probably worth keeping."><b>08</b><span>THE RED PEN<small>reads twice, cuts once</small></span></button></li>
             </ul>
           </div>
+            </div>
+          </div>
         </div>
-
-        <footer class="panel__help">
-          <span>↑↓ SELECT</span><span>←→ SWITCH FIGHTER</span><span>ENTER PLAY</span>
-          <a href="#story">▼ THE STORY &amp; THE LOG</a>
-        </footer>
       </div>
+
+      <footer class="console-help">
+        <span>↑↓ SELECT</span><span>←→ SWITCH FIGHTER</span><span>ENTER PLAY</span>
+        <a href="#story">▼ THE STORY &amp; THE LOG</a>
+      </footer>
     </section>
   </main>
 
