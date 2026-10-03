@@ -1,0 +1,10 @@
+# local-only: preview tooling, scratch files, raster masters
+.playwright-mcp/
+*.log
+preview/
+
+# the site ships .webp; PNG masters stay local (restore a webp from one before deleting it)
+assets/**/*.png
+!assets/favicon.png
+!assets/favicon-*.png
+!assets/apple-touch-icon.png

@@ -1,166 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOAHISARIDER // LINK DUEL</title>
-  <meta name="description" content="NoahIsARider's personal link portal — choose a circuit and enter the duel.">
-  <meta name="theme-color" content="#070718">
-  <link rel="icon" type="image/png" href="icon.png">
-  <link rel="apple-touch-icon" href="icon.png">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080807" />
+  <meta name="description" content="Noah's room — every object is a door to a different corner of my internet." />
+  <title>NOAH'S ROOM</title>
+  <link rel="icon" href="assets/favicon.png" sizes="any" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="alternate" type="application/rss+xml" title="Noah's Room — index" href="feed.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="layered.css" />
 </head>
-<body class="duel-page">
-  <a class="skip-link" href="#commands">Skip to command menu</a>
-  <main class="game-screen" id="top" data-active-side="signal">
-    <div class="arena" aria-hidden="true">
-      <img class="arena-bg" src="assets/duel/arena.png" alt="">
-      <div class="fighter-sprite fighter-sprite--signal">
-        <img class="fighter-trail" src="assets/duel/signal-trail.png" alt="">
-        <img class="fighter-body" src="assets/duel/signal-hound.png" alt="">
+<body>
+  <a class="skip" href="#screen-content">Skip to screen</a>
+  <main class="viewport" aria-label="An interactive night desk">
+    <div class="desk" id="desk">
+      <img class="desk__plate" src="assets/desk-empty-v2.webp" alt="An almost empty wooden desk by a city window at night" />
+      <img class="window-neon-city" src="assets/window-neon-city.webp" alt="A violet and magenta city glowing outside the window" />
+      <img class="wall-surface" src="assets/wall-clean-neon.webp" alt="" aria-hidden="true" />
+      <img class="moon" src="assets/objects/moon-monochrome.webp" alt="A cratered monochrome moon above the window" />
+      <button class="moon-door" type="button" aria-label="The moon, sitting quietly above the window"></button>
+      <img class="window-stars" src="assets/objects/window-stars.webp" alt="Five small monochrome supernatural stars" />
+      <img class="window-sill-mask" src="assets/desk-empty-v2.webp" alt="" aria-hidden="true" />
+      <div class="grain" aria-hidden="true"></div>
+      <img class="fairy-lights" src="assets/objects/fairy-lights.webp" alt="" aria-hidden="true" />
+      <button class="object wall-collage" data-page="oblivio" data-motion="shuffle" aria-label="Open oblivio, my other site">
+        <img src="assets/objects/wall-collage.webp" alt="A handmade wall of prints, scraps and stickers" /><span>SCRAP WALL · OBLIVIO</span>
+      </button>
+      <button class="object plant" data-page="codeberg" data-motion="swing" aria-label="Open my page on Codeberg">
+        <img src="assets/objects/plant.webp" alt="A long hanging pothos plant" /><span>PLANT · CODEBERG</span>
+      </button>
+      <img class="wall-shelf" src="assets/objects/wall-shelf.webp" alt="" aria-hidden="true" />
+
+      <button class="object object--books" data-page="goodreads" data-motion="thump" aria-label="Open my reading log on Goodreads">
+        <img src="assets/objects/books.webp" alt="A worn stack of books and zines" /><span>BOOKS · GOODREADS</span>
+      </button>
+      <button class="object object--cassettes" data-page="blogs" data-motion="slide" aria-label="Open the blog">
+        <img src="assets/objects/cassettes.webp" alt="A pile of transparent cassette tapes" /><span>TAPES · BLOGS</span>
+      </button>
+      <button class="object object--radio" data-page="portfolio" data-motion="tune" aria-label="Open the portfolio">
+        <img src="assets/objects/radio.webp" alt="A battered portable cassette radio" /><span>RADIO · PORTFOLIO</span>
+      </button>
+      <button class="object object--chart" data-page="skills" data-motion="swing" aria-label="Open skills and tools">
+        <img src="assets/objects/star-chart.webp" alt="A taped handmade star chart" /><span>STAR CHART · SKILLS</span>
+      </button>
+      <button class="object object--photos" data-page="letterboxd" data-motion="shuffle" aria-label="Open my film diary on Letterboxd">
+        <img src="assets/objects/photos.webp" alt="A pile of night photographs and film strips" /><span>PHOTOS · LETTERBOXD</span>
+      </button>
+      <button class="object object--mail" data-page="mail" data-motion="lift" aria-label="Write to me">
+        <img src="assets/objects/mail.webp" alt="An old envelope with a brass key and red thread" /><span>ENVELOPE · E-MAIL</span>
+      </button>
+      <button class="object object--lamp" data-page="personal" data-motion="glow" aria-label="Open my personal page">
+        <img src="assets/objects/lamp-cordless.webp" alt="A glowing cordless amber desk lamp" /><span>LAMP · PERSONAL PAGE</span>
+      </button>
+      <button class="object object--tower" data-page="scholar" data-motion="tune" aria-label="Open Google Scholar">
+        <img src="assets/objects/media-tower.webp" alt="A tower of translucent media cases, recorder, cables and pens" /><span>MEDIA TOWER · SCHOLAR</span>
+      </button>
+      <button class="object object--floppies" data-page="github" data-motion="shuffle" aria-label="Open GitHub">
+        <img src="assets/objects/floppy-disks.webp" alt="A worn stack of floppy disks" /><span>FLOPPIES · GITHUB</span>
+      </button>
+      <button class="object object--walkman" data-page="recordclub" data-motion="tune" aria-label="Open Record Club">
+        <img src="assets/objects/walkman.webp" alt="A battered cassette player and headphones" /><span>WALKMAN · RECORD CLUB</span>
+      </button>
+      <button class="object object--cactus" data-page="lab" data-motion="swing" aria-label="Open Landslide Lab on GitHub">
+        <img src="assets/objects/desk-cactus.webp" alt="A tiny cactus in a plum ceramic pot" /><span>CACTUS · LANDSLIDE LAB</span>
+      </button>
+      <button class="object object--bottle" data-page="steam" data-motion="lift" aria-label="Open Steam">
+        <img src="assets/objects/sports-bottle.webp" alt="A translucent blue and violet sports bottle" /><span>BOTTLE · STEAM</span>
+      </button>
+      <button class="object object--mug" data-page="itch" data-motion="lift" aria-label="Open itch.io">
+        <img src="assets/objects/coffee-mug.webp" alt="A chipped teal coffee mug" /><span>MUG · ITCH.IO</span>
+      </button>
+      <button class="object object--doll-blob" data-page="x" data-motion="tune" aria-label="Open X">
+        <img src="assets/objects/doll-blob.webp" alt="A violet one-button-eye blob toy" /><span>ODD FRIEND I · X</span>
+      </button>
+      <button class="object object--doll-moth" data-page="mastodon" data-motion="swing" aria-label="Open Mastodon">
+        <img src="assets/objects/doll-moth.webp" alt="A handmade cobalt moth plush" /><span>ODD FRIEND II · MASTODON</span>
+      </button>
+      <button class="object object--doll-rabbit" data-page="bluesky" data-motion="thump" aria-label="Open Bluesky">
+        <img src="assets/objects/doll-rabbit.webp" alt="A three-eyed pink and violet rabbit figurine" /><span>ODD FRIEND III · BLUESKY</span>
+      </button>
+
+      <div class="computer object--crt">
+        <img class="computer__body" src="assets/objects/crt-front.webp" alt="A battered beige CRT monitor facing forward" />
+        <section class="screen" id="screen-content" tabindex="-1" aria-live="polite"></section>
+        <button class="home-key" type="button" data-page="home" aria-label="Return to the home screen"></button>
+        <button class="object object--cat" data-page="tale" data-motion="tune" aria-label="Read the tale">
+          <img src="assets/objects/lucky-cat.webp" alt="A translucent glowing lucky cat" /><span>LUCKY CAT · THE TALE</span>
+        </button>
       </div>
-      <div class="fighter-sprite fighter-sprite--archive">
-        <img class="fighter-trail" src="assets/duel/archive-trail.png" alt="">
-        <img class="fighter-body" src="assets/duel/archive-leviathan.png" alt="">
-      </div>
-      <img class="clash-sprite" src="assets/duel/clash.png" alt="">
-      <div class="screen-flash"></div>
+      <button class="object object--keyboard" data-page="home" data-motion="type" aria-label="Return to the home screen">
+        <img src="assets/objects/keyboard.webp" alt="A yellowed late-1990s computer keyboard" /><span>KEYBOARD · HOME SCREEN</span>
+      </button>
+
+      <div class="note note--left">HI, I'M<br /><b>Noah</b><br /><small>welcome to my night desk</small></div>
+      <div class="note note--right"><span>DESK STATUS</span><b>occupied / unfinished</b><i id="clock">--:--:--</i><span>GUANGZHOU · GMT+8</span></div>
+      <div class="desk-footer-bg" aria-hidden="true"></div>
+      <div class="counter" aria-label="Room coordinates: 90 degrees 00 minutes 01 seconds north, 000 degrees 00 minutes 01 seconds east"><b>90°00'01"N 000°00'01"E</b></div>
+
+      <button class="map-toggle" type="button" aria-expanded="false" aria-controls="desk-map">DESK MAP [?]</button>
+      <aside class="desk-map" id="desk-map">
+        <header>IF YOU ARE LOST <button type="button" data-close-map>×</button></header>
+        <div class="desk-map__links"></div>
+        <p>Every item is a separate image layer. Try poking them.</p>
+      </aside>
+
+      <footer class="badges" aria-label="Favorite corners of the personal web">
+        <span class="web-badge web-badge--china" role="note" aria-label="Made in China"><b>CHINA</b><small>HOME WEB</small></span>
+        <span class="web-badge web-badge--pride" role="note" aria-label="Queer pride"><b>QUEER</b><small>AND HERE</small></span>
+        <a class="web-badge web-badge--neocities" href="https://neocities.org/" target="_blank" rel="noreferrer"><b>NEOCITIES</b><small>WEB NEIGHBORS</small></a>
+        <a class="web-badge web-badge--rss" href="feed.xml"><b>RSS</b><small>EVERYTHING INDEX</small></a>
+      </footer>
     </div>
-    <div class="crt-lines" aria-hidden="true"></div>
-
-    <header class="game-title">
-      <small>NOAHISARIDER PRESENTS</small>
-      <h1>LINK DUEL</h1>
-      <p>ROUND ∞ · THE WEB BETWEEN WORLDS</p>
-    </header>
-
-    <section class="hud-layer" aria-label="Choose a fighter">
-      <button class="hud hud--signal is-active" type="button" data-team-select="signal" aria-pressed="true">
-        <img src="assets/duel/command-frame.png" alt="">
-        <span class="hud-copy"><b>01 · SIGNAL HOUND</b><i></i><small>CREATIVE CIRCUIT</small></span>
-      </button>
-      <div class="round-mark" aria-hidden="true"><span>VS</span></div>
-      <button class="hud hud--archive" type="button" data-team-select="archive" aria-pressed="false">
-        <img src="assets/duel/command-frame.png" alt="">
-        <span class="hud-copy"><b>02 · ARCHIVE LEVIATHAN</b><i></i><small>RESEARCH CIRCUIT</small></span>
-      </button>
-    </section>
-
-    <section class="command-console" id="commands" aria-label="Battle command menu">
-      <img class="command-frame-art" src="assets/duel/command-frame.png" alt="" aria-hidden="true">
-      <div class="command-content">
-        <header class="command-header">
-          <p>COMMAND PHASE <span id="turn-side">PLAYER 01</span></p>
-          <h2 id="command-title">CREATIVE CIRCUIT</h2>
-          <output id="command-readout">CHOOSE A MOVE</output>
-        </header>
-        <nav class="command-list is-active" data-command-list="signal" aria-label="Creative circuit commands">
-          <a class="command-item" href="https://noahisarider.github.io/" target="_blank" rel="noreferrer" data-side="signal" data-index="0" data-note="PROFILE / CV">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">01</span>
-        <span class="command-copy"><strong>PERSONAL PAGE</strong><small>PROFILE / CV</small></span>
-      </a>
-<a class="command-item" href="https://noahsblog.pages.dev" target="_blank" rel="noreferrer" data-side="signal" data-index="1" data-note="LONG-FORM SIGNAL">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">02</span>
-        <span class="command-copy"><strong>BLOGS</strong><small>LONG-FORM SIGNAL</small></span>
-      </a>
-<a class="command-item" href="https://noahisarider.github.io/oblivio/portfolio" target="_blank" rel="noreferrer" data-side="signal" data-index="2" data-note="SELECTED BUILDS">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">03</span>
-        <span class="command-copy"><strong>PORTFOLIO</strong><small>SELECTED BUILDS</small></span>
-      </a>
-<a class="command-item" href="https://noahisarider.github.io/oblivio" target="_blank" rel="noreferrer" data-side="signal" data-index="3" data-note="THE OTHER DOOR">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">04</span>
-        <span class="command-copy"><strong>OBLIVIO</strong><small>THE OTHER DOOR</small></span>
-      </a>
-<a class="command-item" href="https://www.goodreads.com/ratkingsyndrome" target="_blank" rel="noreferrer" data-side="signal" data-index="4" data-note="READING LOG">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">05</span>
-        <span class="command-copy"><strong>GOODREADS</strong><small>READING LOG</small></span>
-      </a>
-<a class="command-item" href="https://letterboxd.com/NoahIsARider" target="_blank" rel="noreferrer" data-side="signal" data-index="5" data-note="FILM LOG">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">06</span>
-        <span class="command-copy"><strong>LETTERBOXD</strong><small>FILM LOG</small></span>
-      </a>
-<a class="command-item" href="https://record.club/NoahIsARider" target="_blank" rel="noreferrer" data-side="signal" data-index="6" data-note="LISTENING LOG">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">07</span>
-        <span class="command-copy"><strong>RECORD CLUB</strong><small>LISTENING LOG</small></span>
-      </a>
-<a class="command-item" href="https://noahisarider.itch.io" target="_blank" rel="noreferrer" data-side="signal" data-index="7" data-note="SMALL PLAYABLE THINGS">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">08</span>
-        <span class="command-copy"><strong>ITCH.IO</strong><small>SMALL PLAYABLE THINGS</small></span>
-      </a>
-<a class="command-item" href="https://steamcommunity.com/id/noahisarider" target="_blank" rel="noreferrer" data-side="signal" data-index="8" data-note="GAME LIBRARY">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">09</span>
-        <span class="command-copy"><strong>STEAM</strong><small>GAME LIBRARY</small></span>
-      </a>
-        </nav>
-        <nav class="command-list" data-command-list="archive" aria-label="Research circuit commands" hidden>
-          <a class="command-item" href="https://scholar.google.cz/citations?user=CLf-BNAAAAAJ" target="_blank" rel="noreferrer" data-side="archive" data-index="0" data-note="PAPERS / CITATIONS">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">01</span>
-        <span class="command-copy"><strong>GOOGLE SCHOLAR</strong><small>PAPERS / CITATIONS</small></span>
-      </a>
-<a class="command-item" href="https://noahisarider.github.io/NoahIsARider/skills.html" target="_blank" rel="noreferrer" data-side="archive" data-index="1" data-note="THE INSTRUMENT PANEL">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">02</span>
-        <span class="command-copy"><strong>SKILLS &amp; TOOLS</strong><small>THE INSTRUMENT PANEL</small></span>
-      </a>
-<a class="command-item" href="archive.html" data-side="archive" data-index="2" data-note="32 PUBLIC TEXTS">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">03</span>
-        <span class="command-copy"><strong>WORKS ARCHIVE</strong><small>32 PUBLIC TEXTS</small></span>
-      </a>
-<a class="command-item" href="https://github.com/NoahIsARider" target="_blank" rel="noreferrer" data-side="archive" data-index="3" data-note="CODE / NOTEBOOKS">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">04</span>
-        <span class="command-copy"><strong>GITHUB</strong><small>CODE / NOTEBOOKS</small></span>
-      </a>
-<a class="command-item" href="https://codeberg.org/NoahIsARider" target="_blank" rel="noreferrer" data-side="archive" data-index="4" data-note="THE OTHER FORGE">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">05</span>
-        <span class="command-copy"><strong>CODEBERG</strong><small>THE OTHER FORGE</small></span>
-      </a>
-<a class="command-item" href="https://github.com/LandslideLab" target="_blank" rel="noreferrer" data-side="archive" data-index="5" data-note="STRANGER EXPERIMENTS">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">06</span>
-        <span class="command-copy"><strong>LANDSLIDE LAB</strong><small>STRANGER EXPERIMENTS</small></span>
-      </a>
-<a class="command-item" href="https://noahisarider.github.io/noahsroom/" target="_blank" rel="noreferrer" data-side="archive" data-index="6" data-note="NIGHT-DESK PORTAL">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">07</span>
-        <span class="command-copy"><strong>NOAH'S ROOM</strong><small>NIGHT-DESK PORTAL</small></span>
-      </a>
-<a class="command-item" href="https://x.com/NoahIsARider" target="_blank" rel="noreferrer" data-side="archive" data-index="7" data-note="SHORT SIGNALS">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">08</span>
-        <span class="command-copy"><strong>X / TWITTER</strong><small>SHORT SIGNALS</small></span>
-      </a>
-<a class="command-item" href="https://mastodon.social/@noahisarider" target="_blank" rel="noreferrer" data-side="archive" data-index="8" data-note="FEDERATED SIGNAL">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">09</span>
-        <span class="command-copy"><strong>MASTODON</strong><small>FEDERATED SIGNAL</small></span>
-      </a>
-<a class="command-item" href="https://bsky.app/profile/noahisarider.bsky.social" target="_blank" rel="noreferrer" data-side="archive" data-index="9" data-note="OPEN SKY SIGNAL">
-        <span class="command-cursor" aria-hidden="true">▶</span>
-        <span class="command-number">10</span>
-        <span class="command-copy"><strong>BLUESKY</strong><small>OPEN SKY SIGNAL</small></span>
-      </a>
-        </nav>
-        <footer class="command-help">
-          <span>↑↓ SELECT</span><span>←→ SWITCH FIGHTER</span><span>ENTER OPEN</span>
-          <a href="mailto:noahchou2005@gmail.com">CONTACT</a>
-          <span>32 WORKS SAVED</span>
-        </footer>
-      </div>
-    </section>
   </main>
-  <script src="assets/duel.js"></script>
+  <script src="layered.js"></script>
 </body>
 </html>

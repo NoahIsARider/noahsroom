@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>relic — home is where the heart is</title>
+  <meta name="description" content="My room, in three lights. A small handwritten portfolio of the place where things get made." />
+  <meta name="theme-color" content="#faf7f1" />
+  <link rel="icon" href="../assets/favicon.png" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.cn" />
+  <link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+  <link href="https://fonts.googleapis.cn/css2?family=Caveat:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --paper: #faf7f1;
+      --paper-deep: #f2ece1;
+      --ink: #1b1814;
+      --ink-soft: #71685c;
+      --ink-faint: #a99f90;
+      --line: #e6dfd3;
+      --amber: #a34e1f;
+      --hand: 'Caveat', 'Comic Sans MS', cursive;
+      --display: 'Cormorant Garamond', Georgia, serif;
+      --body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--ink); color: var(--paper); }
+
+    .shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 36px 72px;
+    }
+
+    /* ===== top bar ===== */
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .brand {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 600;
+      font-size: 26px;
+      letter-spacing: 0.4px;
+    }
+
+    .doodle {
+      display: inline-block;
+      vertical-align: middle;
+      pointer-events: none;
+      user-select: none;
+    }
+    .doodle svg { display: block; width: 100%; height: 100%; }
+    .doodle-star { width: 36px; height: 36px; margin-left: 16px; }
+    .doodle-spiral { width: 30px; height: 30px; margin-left: 18px; opacity: 0.85; }
+    .doodle-arrow { display: block; width: 74px; height: 20px; margin: 8px 0 0 auto; }
+    .doodle-smiley { width: 46px; height: 46px; }
+    .doodle-note { width: 28px; height: 36px; }
+
+    .has-under { position: relative; }
+    .rough-under { position: absolute; left: 0; top: 0; pointer-events: none; }
+    .rough-frame { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 2; }
+
+    .top-note {
+      font-family: var(--hand);
+      font-size: 17px;
+      color: var(--ink-soft);
+    }
+
+    .topbar-status {
+      font-size: 10px;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* ===== layout ===== */
+
+    .layout {
+      display: grid;
+      grid-template-columns: 232px 1fr;
+      gap: 64px;
+      margin-top: 44px;
+      align-items: start;
+    }
+
+    /* ===== sidebar ===== */
+
+    .owner {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 600;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .owner-sub {
+      margin-top: 10px;
+      font-family: var(--hand);
+      font-size: 18px;
+      color: var(--ink-soft);
+      line-height: 1.35;
+    }
+
+    .link-list {
+      margin-top: 34px;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .link-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .link-no {
+      font-size: 10px;
+      color: var(--ink-faint);
+      letter-spacing: 1px;
+    }
+
+    .link-name {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .link-url {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--ink-faint);
+      transition: color 0.25s ease;
+    }
+
+    .link-item:hover .link-name { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--amber); }
+    .link-item:hover .link-url { color: var(--amber); }
+
+    .sidebar-note {
+      margin-top: 26px;
+      font-family: var(--hand);
+      font-size: 16px;
+      color: var(--ink-faint);
+      line-height: 1.45;
+    }
+
+    .home-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+    .home-link:hover { color: var(--amber); border-color: var(--amber); }
+
+    /* ===== main: the plates ===== */
+
+    .main { padding-top: 6px; }
+
+    .plate {
+      --tilt: -0.4deg;
+      margin-bottom: 76px;
+      transform: rotate(var(--tilt));
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+    }
+
+    .plate:nth-child(2) { --tilt: 0.7deg; }
+    .plate:nth-child(3) { --tilt: -0.25deg; }
+
+    .plate:hover {
+      transform: rotate(0deg) translateY(-3px);
+      box-shadow: 0 16px 40px rgba(27, 24, 20, 0.10);
+    }
+
+    .plate-frame {
+      background: #fffdf9;
+      border: 1px solid var(--line);
+      padding: 12px 12px 0;
+    }
+
+    .plate-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .caption {
+      margin-top: 16px;
+      font-family: var(--hand);
+      font-weight: 600;
+      font-size: 21px;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .caption .mark { color: var(--amber); margin-right: 6px; }
+
+    .plate-meta {
+      margin-top: 3px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* second plate drifts right — keep it loose */
+    .plate:nth-child(2) {
+      margin-left: 11%;
+      max-width: 82%;
+    }
+
+    .plate:nth-child(3) {
+      max-width: 94%;
+    }
+
+    /* ===== footer ===== */
+
+    .footer {
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-note {
+      font-family: var(--hand);
+      font-size: 17px;
+      color: var(--ink-soft);
+    }
+
+    .footer-status {
+      font-size: 10px;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* ===== responsive ===== */
+
+    @media (max-width: 860px) {
+      .shell { padding: 24px 20px 56px; }
+      .layout { grid-template-columns: 1fr; gap: 40px; margin-top: 32px; }
+      .link-list { margin-top: 24px; }
+      .plate:nth-child(2) { margin-left: 0; max-width: 100%; }
+      .plate:nth-child(3) { max-width: 100%; }
+      .plate { margin-bottom: 56px; }
+      .top-note { display: none; }
+    }
+
+    /* ===== lightbox: click-to-zoom + amber hand-drawn circles ===== */
+
+    .plate-frame { cursor: zoom-in; }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      background: rgba(27, 24, 20, 0.86);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; animation: lbIn 0.25s ease; }
+    @keyframes lbIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .lightbox-stage { position: relative; max-width: 94vw; max-height: 90vh; }
+
+    .lightbox-imgwrap {
+      position: relative;
+      display: inline-block;
+      background: #fffdf9;
+      padding: 14px 14px 10px;
+      border: 1px solid var(--line);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+      animation: lbPop 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    }
+    @keyframes lbPop {
+      from { transform: scale(0.92); opacity: 0.4; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .lightbox-imgwrap img {
+      display: block;
+      max-width: 86vw;
+      max-height: 76vh;
+      width: auto;
+      height: auto;
+    }
+
+    .lightbox-rings {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      pointer-events: none;
+    }
+
+    .lightbox-spots {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+    }
+
+    .spot {
+      position: absolute;
+      display: block;
+      cursor: pointer;
+    }
+
+    .spot-label {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(-2deg);
+      font-family: var(--hand);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--amber);
+      background: rgba(250, 247, 241, 0.9);
+      padding: 1px 8px 2px;
+      border-radius: 3px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .spot:hover .spot-label { opacity: 1; }
+
+    .lightbox-close {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-family: var(--hand);
+      font-size: 24px;
+      color: var(--paper);
+      cursor: pointer;
+      opacity: 0.85;
+      z-index: 95;
+    }
+    .lightbox-close:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="https://noahisarider.github.io/" target="_blank" rel="noopener">relic</a>
+      <span class="doodle doodle-star" aria-hidden="true"><svg></svg></span>
+      <span class="top-note">— my room, in three lights</span>
+      <span class="topbar-status">3 rooms · one life</span>
+      <span class="doodle doodle-spiral" aria-hidden="true"><svg></svg></span>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <h1 class="owner">Noahisarider</h1>
+        <p class="owner-sub">my room, in three lights.<br>shot casually, noted casually.</p>
+
+        <ul class="link-list">
+          <li>
+            <a class="link-item" href="https://github.com/NoahIsARider" target="_blank" rel="noopener">
+              <span class="link-no">01</span>
+              <span class="link-name">GitHub</span>
+              <span class="link-url">code &amp; experiments</span>
+            </a>
+          </li>
+          <li>
+            <a class="link-item" href="https://record.club/NoahIsARider" target="_blank" rel="noopener">
+              <span class="link-no">02</span>
+              <span class="link-name">Record Club</span>
+              <span class="link-url">things I made</span>
+            </a>
+          </li>
+          <li>
+            <a class="link-item" href="https://www.douban.com/people/227017213" target="_blank" rel="noopener">
+              <span class="link-no">03</span>
+              <span class="link-name">Douban</span>
+              <span class="link-url">books &amp; films</span>
+            </a>
+          </li>
+          <li>
+            <a class="link-item" href="https://letterboxd.com/NoahIsARider" target="_blank" rel="noopener">
+              <span class="link-no">04</span>
+              <span class="link-name">Letterboxd</span>
+              <span class="link-url">what I watched</span>
+            </a>
+          </li>
+          <li>
+            <a class="link-item" href="https://noahisarider.github.io/noahsblogs/" target="_blank" rel="noopener">
+              <span class="link-no">05</span>
+              <span class="link-name">Blogs</span>
+              <span class="link-url">longer thoughts</span>
+            </a>
+          </li>
+        </ul>
+
+        <p class="sidebar-note">
+          ✳ this page used to be a clickable room —
+          each object led somewhere. not anymore:
+          links moved to the left, images are just images.
+          <span class="doodle doodle-arrow" aria-hidden="true"><svg></svg></span>
+        </p>
+        <p class="sidebar-note" style="margin-top:14px;">
+          ps. click a photo to zoom in —
+          the amber circles are the doorways.
+        </p>
+
+        <a class="home-link" href="https://noahisarider.github.io/" target="_blank" rel="noopener">back home →</a>
+        <p class="sidebar-note" style="margin-top:14px;">
+          ps. the moon let you in — <a class="home-link" href="../index.html" style="margin-top:0;">return to the night desk →</a>
+        </p>
+      </aside>
+
+      <main class="main">
+        <figure class="plate">
+          <div class="plate-frame">
+            <img src="./images/room-realistic.jpg"
+                 alt="The room, realistic — late night, desk still lit"
+                 width="2547" height="1306" loading="lazy" />
+          </div>
+          <figcaption class="caption"><span class="mark">✎</span>the room as it is — the desk is still lit at 3am</figcaption>
+          <p class="plate-meta">image 01 · realistic · night</p>
+        </figure>
+
+        <figure class="plate">
+          <div class="plate-frame">
+            <img src="./images/room-dusk.jpg"
+                 alt="The same room at dusk, lamp not yet on"
+                 width="1672" height="941" loading="lazy" />
+          </div>
+          <figcaption class="caption"><span class="mark">✎</span>same room, later — the lamp isn't on yet, the window went dark first</figcaption>
+          <p class="plate-meta">image 02 · dusk · blue hour</p>
+        </figure>
+
+        <figure class="plate">
+          <div class="plate-frame">
+            <img src="./images/room-vangogh.jpg"
+                 alt="The room as van gogh might have painted it"
+                 width="1436" height="736" loading="lazy" />
+          </div>
+          <figcaption class="caption"><span class="mark">✎</span>the room, if van gogh lived here — the version the landlord would never approve</figcaption>
+          <p class="plate-meta">image 03 · vangogh · oil on imagination</p>
+        </figure>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-note">— written late one night in august 2026 · keep wandering</span>
+      <span class="doodle doodle-smiley" aria-hidden="true"><svg></svg></span>
+      <span class="doodle doodle-note" aria-hidden="true"><svg></svg></span>
+      <span class="footer-status">home is where the heart is</span>
+    </footer>
+  </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕ close</button>
+    <div class="lightbox-stage">
+      <div class="lightbox-imgwrap" id="lightboxWrap">
+        <img id="lightboxImg" src="" alt="" />
+        <svg class="lightbox-rings" id="lightboxRings" aria-hidden="true"></svg>
+        <div class="lightbox-spots" id="lightboxSpots"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="vendor/rough.min.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var NS = 'http://www.w3.org/2000/svg';
+    var INK = '#1b1814', AMBER = '#a34e1f', SOFT = '#71685c';
+
+    function doodle(sel) {
+      var svg = document.querySelector(sel).querySelector('svg');
+      return { svg: svg, rc: rough.svg(svg) };
+    }
+
+    function starPoints(cx, cy, R, r, n) {
+      var pts = [];
+      for (var i = 0; i < n * 2; i++) {
+        var rad = i % 2 === 0 ? R : r;
+        var a = -Math.PI / 2 + i * Math.PI / n;
+        pts.push([cx + rad * Math.cos(a), cy + rad * Math.sin(a)]);
+      }
+      return pts;
+    }
+
+    function underline(el, color) {
+      el.classList.add('has-under');
+      var svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('class', 'rough-under');
+      el.appendChild(svg);
+      var rc = rough.svg(svg);
+      var w = el.offsetWidth, h = el.offsetHeight;
+      svg.setAttribute('width', w);
+      svg.setAttribute('height', h + 10);
+      svg.appendChild(rc.line(0, h + 3, w, h + 3, {
+        stroke: color, strokeWidth: 2.2, roughness: 3, bowing: 2
+      }));
+    }
+
+    function drawAll() {
+      // star near brand
+      var star = doodle('.doodle-star');
+      star.svg.appendChild(star.rc.polygon(starPoints(18, 18, 15, 6.5, 5), {
+        stroke: AMBER, strokeWidth: 1.8, roughness: 1.9,
+        fill: 'rgba(163,78,31,0.10)'
+      }));
+
+      // spiral near status
+      var spi = doodle('.doodle-spiral');
+      [14, 9, 4].forEach(function (r) {
+        spi.svg.appendChild(spi.rc.circle(15, 15, r, {
+          stroke: SOFT, strokeWidth: 1.6, roughness: 2.6, fill: 'none'
+        }));
+      });
+
+      // arrow in the sidebar note
+      var arr = doodle('.doodle-arrow');
+      arr.svg.appendChild(arr.rc.linearPath([[2, 12], [58, 9], [46, 2], [58, 9], [46, 16]], {
+        stroke: AMBER, strokeWidth: 2, roughness: 1.7
+      }));
+
+      // smiley in footer
+      var sm = doodle('.doodle-smiley');
+      sm.svg.appendChild(sm.rc.circle(23, 23, 18, {
+        stroke: INK, strokeWidth: 2, roughness: 2.4, fill: 'none'
+      }));
+      sm.svg.appendChild(sm.rc.circle(16, 19, 2.2, {
+        stroke: INK, strokeWidth: 1.6, roughness: 1, fill: INK
+      }));
+      sm.svg.appendChild(sm.rc.circle(30, 19, 2.2, {
+        stroke: INK, strokeWidth: 1.6, roughness: 1, fill: INK
+      }));
+      sm.svg.appendChild(sm.rc.arc(23, 25, 11, 8, Math.PI * 0.15, Math.PI * 0.85, {
+        stroke: INK, strokeWidth: 2, roughness: 2.2, fill: 'none'
+      }));
+
+      // music note in footer
+      var nt = doodle('.doodle-note');
+      nt.svg.appendChild(nt.rc.line(11, 5, 11, 29, {
+        stroke: INK, strokeWidth: 2, roughness: 1.4
+      }));
+      nt.svg.appendChild(nt.rc.ellipse(11, 29, 9, 6.5, {
+        stroke: INK, strokeWidth: 2, roughness: 1.7, fill: INK
+      }));
+      nt.svg.appendChild(nt.rc.curve([[11, 5], [18, 8], [14, 15]], {
+        stroke: INK, strokeWidth: 2, roughness: 1.5
+      }));
+
+      // hand-drawn frames around the three plates
+      var plates = document.querySelectorAll('.plate');
+      plates.forEach(function (plate) {
+        var frame = plate.querySelector('.plate-frame');
+        var fr = frame.getBoundingClientRect();
+        var pr = plate.getBoundingClientRect();
+        var svg = document.createElementNS(NS, 'svg');
+        svg.setAttribute('class', 'rough-frame');
+        plate.appendChild(svg);
+        var rc = rough.svg(svg);
+        svg.setAttribute('width', pr.width);
+        svg.setAttribute('height', pr.height);
+        var x = fr.left - pr.left - 8, y = fr.top - pr.top - 8;
+        var w = fr.width + 16, h = fr.height + 16;
+        svg.appendChild(rc.rectangle(x, y, w, h, {
+          stroke: INK, strokeWidth: 2, roughness: 2.5, bowing: 1.8, fill: 'none'
+        }));
+      });
+
+      // scribble underlines on captions
+      document.querySelectorAll('.caption').forEach(function (cap) {
+        underline(cap, AMBER);
+      });
+
+      // underline under the owner name
+      underline(document.querySelector('.owner'), INK);
+
+      // rough circle around the home link
+      var hl = document.querySelector('.home-link');
+      hl.classList.add('has-under');
+      var hsvg = document.createElementNS(NS, 'svg');
+      hsvg.setAttribute('class', 'rough-under');
+      hl.appendChild(hsvg);
+      var hrc = rough.svg(hsvg);
+      var hw = hl.offsetWidth + 18, hh = hl.offsetHeight + 14;
+      hsvg.setAttribute('width', hw);
+      hsvg.setAttribute('height', hh);
+      hsvg.appendChild(hrc.ellipse(hw / 2, hh / 2, hw / 2, hh / 2, {
+        stroke: AMBER, strokeWidth: 1.8, roughness: 2.2, fill: 'none'
+      }));
+    }
+
+    if (document.readyState === 'complete') {
+      drawAll();
+    } else {
+      window.addEventListener('load', drawAll);
+    }
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+    var AMBER = '#a34e1f';
+
+    // hotspot data (percent of each image), restored from the interactive-room version
+    var SPOTS = {
+      "room-realistic.jpg": [
+        ["computer", 12.2, 42.2, 21.6, 24.1, "https://github.com/NoahIsARider", "github"],
+        ["keyboard", 30.8, 42.3, 29.5, 18.4, "https://record.club/NoahIsARider", "record club"],
+        ["books", 67.1, 9.2, 12.8, 27.7, "https://www.douban.com/people/227017213", "douban"],
+        ["dvds", 66.8, 34.5, 14.2, 41.8, "https://letterboxd.com/NoahIsARider", "letterboxd"],
+        ["notebook", 69.1, 79.6, 20.2, 16.8, "https://noahisarider.github.io/noahsblogs/", "my blogs"]
+      ],
+      "room-dusk.jpg": [
+        ["computer", 12.2, 42.2, 21.6, 24.1, "https://github.com/NoahIsARider", "github"],
+        ["keyboard", 30.8, 42.3, 29.5, 18.4, "https://record.club/NoahIsARider", "record club"],
+        ["books", 57.2, 9.2, 12.8, 27.7, "https://www.douban.com/people/227017213", "douban"],
+        ["dvds", 55.9, 34.5, 14.2, 41.8, "https://letterboxd.com/NoahIsARider", "letterboxd"],
+        ["notebook", 69.1, 79.6, 20.2, 16.8, "https://noahisarider.github.io/noahsblogs/", "my blogs"]
+      ],
+      "room-vangogh.jpg": [
+        ["computer", 11.0, 20.0, 22.1, 34.8, "https://github.com/NoahIsARider", "github"],
+        ["keyboard", 47.0, 40.2, 23.1, 27.9, "https://record.club/NoahIsARider", "record club"],
+        ["books", 76.1, 5.4, 21.7, 15.8, "https://www.douban.com/people/227017213", "douban"],
+        ["dvds", 78.3, 20.0, 20.0, 14.0, "https://letterboxd.com/NoahIsARider", "letterboxd"],
+        ["notebook", 74.9, 60.8, 16.4, 22.4, "https://noahisarider.github.io/noahsblogs/", "my blogs"]
+      ]
+    };
+
+    var lb = document.getElementById('lightbox');
+    var img = document.getElementById('lightboxImg');
+    var rings = document.getElementById('lightboxRings');
+    var spotsEl = document.getElementById('lightboxSpots');
+    var closeBtn = document.getElementById('lightboxClose');
+
+    function srcName(s) { return s.split('/').pop(); }
+
+    function build(list) {
+      rings.innerHTML = '';
+      spotsEl.innerHTML = '';
+      var w = img.clientWidth, h = img.clientHeight;
+      if (!w || !h) return;
+      rings.setAttribute('width', w);
+      rings.setAttribute('height', h);
+      spotsEl.style.width = w + 'px';
+      spotsEl.style.height = h + 'px';
+      var rc = rough.svg(rings);
+      list.forEach(function (s) {
+        var x = s[1], y = s[2], ww = s[3], hh = s[4], href = s[5], label = s[6];
+        var cx = (x + ww / 2) / 100 * w;
+        var cy = (y + hh / 2) / 100 * h;
+        var rx = ww / 2 / 100 * w;
+        var ry = hh / 2 / 100 * h;
+        rings.appendChild(rc.ellipse(cx, cy, rx * 2, ry * 2, {
+          stroke: AMBER, strokeWidth: 2.6, roughness: 2.6,
+          fill: 'rgba(163,78,31,0.05)'
+        }));
+        var a = document.createElement('a');
+        a.className = 'spot';
+        a.href = href;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.setAttribute('aria-label', label);
+        a.style.left = x + '%';
+        a.style.top = y + '%';
+        a.style.width = ww + '%';
+        a.style.height = hh + '%';
+        var lab = document.createElement('span');
+        lab.className = 'spot-label';
+        lab.textContent = '✎ ' + label;
+        a.appendChild(lab);
+        spotsEl.appendChild(a);
+      });
+    }
+
+    function openLightbox(src) {
+      img.src = src;
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      rings.innerHTML = '';
+      spotsEl.innerHTML = '';
+      var key = srcName(src);
+      var list = SPOTS[key] || [];
+      if (img.complete && img.naturalWidth > 0) {
+        build(list);
+      } else {
+        img.addEventListener('load', function () { build(list); }, { once: true });
+      }
+    }
+
+    function closeLightbox() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.plate-frame').forEach(function (frame) {
+      frame.addEventListener('click', function () {
+        var im = frame.querySelector('img');
+        if (im) openLightbox(im.src);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  })();
+  </script>
+</body>
+</html>

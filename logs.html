@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0518" />
+  <meta name="description" content="The three odd friends — a dark fairy tale from the shelf above the desk. The story this room is built on." />
+  <title>THE THREE ODD FRIENDS — NOAH'S ROOM</title>
+  <link rel="icon" href="assets/favicon.png" sizes="any" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="alternate" type="application/rss+xml" title="Noah's Room — index" href="feed.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=VT323&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #b8ff54;
+      --pink: #ff3f9d;
+      --violet: #9d6bff;
+      --amber: #ffaf42;
+      --ink: #ece6ff;
+      --dim: #b3a6d8;
+      --panel: rgba(10, 5, 27, .76);
+      --terminal: "VT323", monospace;
+      --type: "Special Elite", serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--ink);
+      background: #05030f;
+      font: 20px/1.34 var(--terminal);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* the same purple city the desk stands in */
+    .city {
+      position: fixed;
+      z-index: -2;
+      inset: 0;
+      background: #0b0520 url("assets/comic-neon-outer-bg.webp") center/cover no-repeat;
+      filter: saturate(1.1) contrast(1.04) brightness(.66);
+      transform: scale(1.02);
+    }
+    .veil {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 20% 8%, rgba(147, 74, 255, .2), transparent 55%),
+        radial-gradient(ellipse at 82% 82%, rgba(255, 63, 157, .14), transparent 55%),
+        linear-gradient(180deg, rgba(4, 2, 12, .66), rgba(4, 2, 12, .88) 58%, rgba(2, 1, 7, .95));
+    }
+    .scan {
+      position: fixed;
+      z-index: 3;
+      inset: 0;
+      pointer-events: none;
+      opacity: .32;
+      background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0, 0, 0, .44) 4px);
+      mix-blend-mode: multiply;
+    }
+    .page {
+      position: relative;
+      z-index: 4;
+      width: min(880px, 100% - 34px);
+      margin: 0 auto;
+      padding: 46px 0 72px;
+    }
+    a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+    h1, h2, h3 { font-family: var(--type); font-weight: 400; letter-spacing: .01em; }
+    .kicker {
+      margin: 0 0 8px;
+      color: var(--green);
+      text-shadow: 0 0 9px rgba(184, 255, 84, .55);
+      letter-spacing: .24em;
+      font-size: 19px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5.4vw, 50px);
+      line-height: 1.02;
+      color: #fff;
+      text-shadow: 0 0 18px rgba(157, 107, 255, .75), 3px 3px 0 rgba(255, 63, 157, .36);
+    }
+    .sub {
+      margin: 12px 0 0;
+      font-family: var(--type);
+      font-size: 19px;
+      color: var(--amber);
+      letter-spacing: .04em;
+    }
+    .lede { max-width: 62ch; margin: 16px 0 0; color: var(--dim); }
+    nav.panel-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 34px; }
+    nav.panel-links a {
+      padding: 6px 11px;
+      border: 1px solid rgba(157, 107, 255, .62);
+      background: rgba(9, 4, 24, .8);
+      box-shadow: 2px 2px 0 rgba(6, 3, 16, .9), 0 0 12px rgba(120, 70, 255, .18);
+      color: var(--green);
+      text-decoration: none;
+      font-size: 18px;
+      letter-spacing: .06em;
+    }
+    nav.panel-links a:hover, nav.panel-links a:focus-visible { background: rgba(157, 107, 255, .28); color: #fff; }
+
+    .tale {
+      padding: 22px 24px 26px;
+      border: 1px solid rgba(157, 107, 255, .42);
+      border-left: 3px solid var(--green);
+      background: var(--panel);
+      box-shadow: 0 0 24px rgba(90, 44, 190, .28), inset 0 0 46px rgba(6, 3, 18, .62);
+      backdrop-filter: blur(3px);
+    }
+    .tale p { margin: 0 0 14px; max-width: 70ch; }
+    .tale p:last-child { margin-bottom: 0; }
+    .tale h3 {
+      margin: 26px 0 10px;
+      color: var(--pink);
+      font-size: clamp(19px, 2.6vw, 23px);
+      letter-spacing: .12em;
+    }
+    .tale h3:first-child { margin-top: 0; }
+    .tale b { color: var(--green); font-weight: 400; }
+    .tale em { color: var(--amber); font-style: normal; }
+    .tale p.open::first-letter {
+      float: left;
+      margin: 2px 8px 0 0;
+      color: var(--green);
+      font: 44px/0.8 var(--type);
+      text-shadow: 0 0 12px rgba(184, 255, 84, .45);
+    }
+    .tale blockquote {
+      margin: 0 0 14px;
+      padding: 10px 14px;
+      border-left: 2px dashed rgba(255, 175, 66, .6);
+      background: rgba(6, 4, 18, .6);
+      color: var(--dim);
+    }
+    .names {
+      display: grid;
+      gap: 12px;
+      margin: 4px 0 18px;
+      padding: 0;
+      list-style: none;
+    }
+    .names li {
+      padding: 10px 13px;
+      border: 1px dashed rgba(157, 107, 255, .6);
+      background: rgba(6, 3, 20, .66);
+    }
+    .names b { display: block; color: var(--green); letter-spacing: .08em; }
+    .names span { color: var(--dim); font-size: 18px; }
+    .rule { margin: 22px 0; border: 0; border-top: 1px dashed rgba(157, 107, 255, .45); }
+    footer.sig {
+      margin-top: 34px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(157, 107, 255, .38);
+      color: var(--dim);
+      font-size: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      justify-content: space-between;
+    }
+    @media (max-width: 620px) {
+      body { font-size: 19px; }
+      .page { padding-top: 32px; }
+      .tale { padding: 16px 15px 20px; }
+      .names span { font-size: 17px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="city" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
+
+  <main class="page">
+    <header>
+      <p class="kicker">NOAH'S ROOM · THE TALE</p>
+      <h1>the three odd friends</h1>
+      <p class="sub">a dark fairy tale from the shelf above the desk</p>
+      <p class="lede">Everything in this room is furniture, except the three small creatures on the shelf. This is the story they belong to — the reason the desk is lit at night, and the reason the moon is a door.</p>
+      <nav class="panel-links" aria-label="The room">
+        <a href="index.html">← back to the desk</a>
+        <a href="relic/">relic · three lights</a>
+        <a href="duel/">the duel · the room's new log</a>
+      </nav>
+    </header>
+
+    <article class="tale">
+      <h3>I · THE SHELF</h3>
+      <p class="open">There is a room at the top of a city that never quite turns its lights off. In the room there is a desk, and above the desk there is a shelf, and on the shelf there are three creatures who were not made properly.</p>
+      <p>They were not mistakes. They were <em>leftovers</em> — the pieces that were still on the table when whoever made them got tired. That is a different thing, and it is the whole of their story.</p>
+
+      <ul class="names">
+        <li><b>ODD FRIEND I — THE ONE-BUTTON THING</b><span>Sewn out of violet scraps and one button for an eye. It can look at exactly one thing at a time, and it has decided that thing is the window.</span></li>
+        <li><b>ODD FRIEND II — THE MOTH OF COBALT THREAD</b><span>Made to be eaten by something larger, and told so. It never sleeps. It files things instead: dust, sounds, the names of every hour it has ever seen.</span></li>
+        <li><b>ODD FRIEND III — THE RABBIT WITH THREE EYES</b><span>One eye for what is, one for what was, one for what will be. It blinks with the wrong one on purpose, because seeing all three at once is how a small thing goes mad.</span></li>
+      </ul>
+
+      <h3>II · THE NIGHT SHIFT</h3>
+      <p>When the one who works at the desk finally goes to bed, the room does not switch off. It changes hands.</p>
+      <p>The button-eye watches the screen until its one eye waters, because a screen that goes dark before its work is saved is the worst thing either of them can imagine. The moth eats the light that leaks out of the monitor — moths have always eaten light, that is not new — and since the light carries dreams, the dreams cannot get out into the room. The rabbit sits with its back to the window and counts. It counts footsteps in the stairwell that belong to nobody. It counts the nights. It is very good at counting and very bad at stopping.</p>
+      <p>Nothing in the room is haunted. The room is <em>kept</em>. Those are different things, and the three of them would like you to be precise about it.</p>
+
+      <h3>III · THE MOON</h3>
+      <p>Above the window there is a monochrome moon, and the moon is a door. It has been a door for longer than the desk has been a desk.</p>
+      <p>It only opens for someone who knocks ten times, and the knocks have to be quick, the way you knock when you are frightened or when you are sure. Ten knocks and the door remembers you. The ninth knock is the one that matters. The three of them agreed, a long time ago, never to knock.</p>
+      <blockquote>The rabbit counted the knocks once and did not like the number. Ten is a whole hand and a half. Ten is how many times you have to mean it.</blockquote>
+      <p>Step through the moon and you come out in the room as it was before — all three of its lights, none of its mess. Nobody has ever come back through and said what it costs. The moth has a theory. The moth has a lot of theories, and it files them.</p>
+
+      <h3>IV · WHAT THEY ARE AFRAID OF</h3>
+      <p>A blank page. A battery at four per cent. The sound of the city going dark block by block at four in the morning, which is the sound of everyone else giving up first. And the possibility, mentioned only once and never again, that one night the one at the desk will get up and simply not come back — and then the room will keep itself forever, three small creatures guarding an empty chair, being brave at nobody.</p>
+      <p>The button-eye checked the window for that too. It looks at one thing at a time, and it chose well.</p>
+
+      <h3>V · HOW TO KNOW YOU ARE WELCOME</h3>
+      <p>If you ever find the room, stand still for a moment and wait to be looked at. They will do it in the order they always do: the button-eye first, because it can only manage one thing at a time and it has already spent itself on you. Then the moth, sideways, deciding whether you are light or whether you are furniture. Then the rabbit, three times over — once for what you are, once for what you were, once for what you are about to do.</p>
+      <p>Three looks, and no one says anything, and then the room goes on with its night. That is the whole ceremony. That is what it means here to be let in.</p>
+      <p>And the moon over the window will be very quiet, the way it is quiet when it is not being a door.</p>
+
+      <hr class="rule" />
+      <p><b>Next time you are at the desk:</b> the books keep the reading, the tapes keep the writing, the floppies keep the code, and the lucky cat keeps this tale. Everything else is just objects that were left on a table by someone who got tired — which is, if you think about it, all of us.</p>
+      <p>And when the lamp finally goes off, the shelf empties: the hound takes the left side of the floor and the leviathan takes the right, and the two of them fight the same fight they have always fought — that one is kept next door, in <a href="duel/">the arena</a>.</p>
+    </article>
+
+    <footer class="sig">
+      <span>told at a desk in the violet part of the city · GMT+8</span>
+      <span><a href="index.html">the desk</a> · <a href="feed.xml">rss index</a></span>
+    </footer>
+  </main>
+</body>
+</html>
