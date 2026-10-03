@@ -7,7 +7,7 @@
     <description>Everything of Noah (NoahIsARider) in one file, so that readers and crawlers can find all of it: every page, every account, and the complete list of public repositories.</description>
     <language>en</language>
     <copyright>Noah (NoahIsARider)</copyright>
-    <lastBuildDate>Sat, 03 Oct 2026 22:52:11 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 22:57:47 +0800</lastBuildDate>
     <generator>tools/build-feed.py</generator>
     <ttl>720</ttl>
     <item>
@@ -201,15 +201,6 @@
       <category>page</category>
       <category>account</category>
       <description>A harbour blog.</description>
-    </item>
-    <item>
-      <title>repository · NoahIsARider: NoahIsARider/noahsroom</title>
-      <link>https://github.com/NoahIsARider/noahsroom</link>
-      <guid isPermaLink="true">https://github.com/NoahIsARider/noahsroom</guid>
-      <pubDate>Sat, 03 Oct 2026 22:10:58 +0800</pubDate>
-      <category>repository · NoahIsARider</category>
-      <category>HTML</category>
-      <description>A night desk on the personal web — every object is a door. Static HTML/CSS/JS. (HTML; created 2026-08-06; last push 2026-10-03)</description>
     </item>
     <item>
       <title>repository · NoahIsARider: NoahIsARider/oblivio</title>
