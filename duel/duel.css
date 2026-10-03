@@ -43,13 +43,16 @@ a { color: var(--acid); }
 }
 .arena-bg {
   position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%;
-  object-fit: cover; filter: saturate(.98) brightness(.7) contrast(1.1);
+  /* the art has to read behind the console as well, so it stays brighter than before */
+  object-fit: cover; filter: saturate(1) brightness(.86) contrast(1.08);
 }
 .vignette {
   position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  /* the bottom only darkens, it never goes opaque: the console sits down here, and the
+     arena has to stay visible in the gaps around its frame */
   background:
-    linear-gradient(180deg, rgba(2, 2, 10, .76), transparent 18%, transparent 54%, rgba(2, 2, 10, .84) 86%, #02020a),
-    radial-gradient(circle at 50% 44%, transparent 0 34%, rgba(2, 2, 12, .46) 78%);
+    linear-gradient(180deg, rgba(2, 2, 10, .76), transparent 18%, transparent 56%, rgba(2, 2, 10, .42) 84%, rgba(2, 2, 10, .58)),
+    radial-gradient(circle at 50% 44%, transparent 0 36%, rgba(2, 2, 12, .4) 80%);
 }
 .crt {
   position: absolute; inset: 0; z-index: 30; pointer-events: none; opacity: .12;

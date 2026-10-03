@@ -259,7 +259,7 @@
 .counter b{filter:brightness(calc(1 + .06*var(--tuned,0)));text-shadow:0 0 calc(8px + 2px*var(--tuned,0)) rgba(184,255,84,calc(.72 + .03*var(--tuned,0)))}
 .counter--awake{cursor:pointer;border-color:#c8ff36;box-shadow:0 0 16px rgba(200,255,54,.45)}
 .counter--awake b{color:#eaffe0}
-.counter--awake::after{content:"CHANGE THE CHANNEL →";position:absolute;left:0;top:100%;margin-top:4px;color:#c8ff36;font-size:.78em;letter-spacing:.16em;white-space:nowrap;text-shadow:0 0 8px rgba(200,255,54,.6)}
+.counter--awake::after{content:"CHANGE THE CHANNEL →";position:absolute;left:0;bottom:100%;margin-bottom:5px;color:#c8ff36;font-size:.78em;letter-spacing:.16em;white-space:nowrap;text-shadow:0 0 8px rgba(200,255,54,.6)}
 
 .static{position:fixed;inset:0;z-index:120;pointer-events:none;opacity:0;transition:opacity .16s linear;mix-blend-mode:screen}
 .static.is-on{opacity:.94}
